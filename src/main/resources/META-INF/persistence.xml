@@ -5,5 +5,10 @@
              version="3.0">
     <persistence-unit name="default">
 
+        <class>com.biblioteca.model.entidades.Libro</class>
+        <class>com.biblioteca.model.entidades.Autor</class>
+        <class>com.biblioteca.model.entidades.Genero</class>
+        <class>com.biblioteca.model.entidades.Usuario</class>
+        <class>com.biblioteca.model.entidades.Prestamo</class>
     </persistence-unit>
 </persistence>
