@@ -2,6 +2,7 @@ package com.biblioteca.model.entidades;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,32 @@ public class Autor {
     private String nombre;
 
     @ManyToMany(mappedBy = "autores")
-    private List<Libro> libros;
+    private List<Libro> libros = new ArrayList<>();
 
+    public Autor() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
 }

@@ -63,9 +63,78 @@ public class Libro {
     @OneToOne(mappedBy = "libro")
     private Prestamo prestamo;
 
-    //
     public Libro() {
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public LocalDate getFechaEdicion() {
+        return fechaEdicion;
+    }
+
+    public void setFechaEdicion(LocalDate fechaEdicion) {
+        this.fechaEdicion = fechaEdicion;
+    }
+
+    public String getImagenPortada() {
+        return imagenPortada;
+    }
+
+    public void setImagenPortada(String imagenPortada) {
+        this.imagenPortada = imagenPortada;
+    }
+
+    public int getNumeroEjemplares() {
+        return numeroEjemplares;
+    }
+
+    public void setNumeroEjemplares(int numeroEjemplares) {
+        this.numeroEjemplares = numeroEjemplares;
+    }
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+
+    public List<Genero> getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(List<Genero> generos) {
+        this.generos = generos;
+    }
+
+    public Prestamo getPrestamo() {
+        return prestamo;
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
+    }
 }

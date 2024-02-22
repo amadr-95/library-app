@@ -2,6 +2,7 @@ package com.biblioteca.model.entidades;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,5 +23,32 @@ public class Genero {
     private String genero;
 
     @ManyToMany(mappedBy = "generos")
-    private List<Libro> libros;
+    private List<Libro> libros = new ArrayList<>();
+
+    public Genero() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
 }
