@@ -22,7 +22,7 @@ public class Prestamo {
     @Column(name = "fecha_prestamo", nullable = false)
     private LocalDate fechaPrestamo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "libro_id", nullable = false)
     private Libro libro;
 
