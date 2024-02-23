@@ -23,4 +23,24 @@ public class UsuarioDao {
         entityManager.close();
         return usuarioLogueado;
     }
+
+    public void insertarUsuario(Usuario usuario) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(usuario);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public Usuario buscarUsuarioPorEmail(String email) throws NoResultException {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT u FROM Usuario u WHERE u.email = :email";
+        Usuario usuario = entityManager.createQuery(query, Usuario.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return usuario;
+    }
 }

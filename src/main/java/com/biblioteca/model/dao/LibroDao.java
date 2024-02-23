@@ -6,9 +6,9 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-public class LibroDAO {
+public class LibroDao {
 
-    public LibroDAO() {
+    public LibroDao() {
     }
 
     //método para insertar un libro

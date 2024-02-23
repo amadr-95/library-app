@@ -1,6 +1,6 @@
 package com.biblioteca.servicios;
 
-import com.biblioteca.model.dao.LibroDAO;
+import com.biblioteca.model.dao.LibroDao;
 import com.biblioteca.model.entidades.Libro;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class ServicioLibro {
 
     public static List<Libro> listarLibros() {
-        LibroDAO libroDAO = new LibroDAO();
+        LibroDao libroDAO = new LibroDao();
         return libroDAO.listarLibros();
     }
 }

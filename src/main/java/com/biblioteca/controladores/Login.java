@@ -1,7 +1,7 @@
 package com.biblioteca.controladores;
 
 import com.biblioteca.model.entidades.Usuario;
-import com.biblioteca.servicios.ServicioLogin;
+import com.biblioteca.servicios.ServicioUsuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
                 email != null && password != null &&
                         !email.trim().isEmpty() && !password.trim().isEmpty()
         ) {
-            Usuario usuario = ServicioLogin.autenticar(email, password);
+            Usuario usuario = ServicioUsuario.autenticar(email, password);
             if (usuario != null) {
                 request.getSession().setAttribute("usuario", usuario);
                 response.sendRedirect("MenuPrincipal");
