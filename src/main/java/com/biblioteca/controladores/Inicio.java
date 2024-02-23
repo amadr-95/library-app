@@ -23,13 +23,8 @@ public class Inicio extends HttpServlet {
         String vista = "/index.jsp";
         //listamos todos los libros
         List<Libro> libros = ServicioLibro.listarLibros();
-        if (libros.isEmpty()) {
-            // Si la lista está vacía, establecemos un atributo en el request para indicar que no hay libros
-            request.setAttribute("mensaje", "No hay libros disponibles en la lista");
-        } else {
-            // Si la lista no está vacía, establecemos un atributo en el request con la lista de libros
-            request.setAttribute("libros", libros);
-        }
+        request.setAttribute("libros", libros);
+
         getServletContext().getRequestDispatcher(vista).forward(request, response);
 
     }
