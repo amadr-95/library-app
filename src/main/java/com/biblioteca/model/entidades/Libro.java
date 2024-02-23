@@ -42,7 +42,7 @@ public class Libro {
     private int numeroEjemplares;
 
     //un libro puede tener varios autores
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "libro_autor", //nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "libro_id", nullable = false), //fk de la tabla actual
@@ -51,7 +51,7 @@ public class Libro {
     private List<Autor> autores = new ArrayList<>();
 
     //un libro puede pertenecer a varios generos
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "libro_genero", //nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "libro_id", nullable = false), //fk de la tabla actual
@@ -59,9 +59,9 @@ public class Libro {
     )
     private List<Genero> generos = new ArrayList<>();
 
-    //un libro solo puede tener un prestamo
-    @OneToOne(mappedBy = "libro")
-    private Prestamo prestamo;
+    //un libro puede tener varios prestamos
+    @OneToMany(mappedBy = "libro")
+    private List<Prestamo> prestamos = new ArrayList<>();
 
     public Libro() {
     }
@@ -130,11 +130,11 @@ public class Libro {
         this.generos = generos;
     }
 
-    public Prestamo getPrestamo() {
-        return prestamo;
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
     }
 
-    public void setPrestamo(Prestamo prestamo) {
-        this.prestamo = prestamo;
+    public void setPrestamos(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
 }
