@@ -36,4 +36,8 @@ public class ServicioUsuario {
     public static List<Usuario> listarUsuariosPorRol(Rol rol) {
         return usuarioDao.listarUsuariosPorRol(rol);
     }
+
+    public static void eliminarUsuario(long empleadoId) {
+        usuarioDao.eliminarUsuario(empleadoId);
+    }
 }

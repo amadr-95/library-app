@@ -9,3 +9,11 @@ VALUES ('Amador', 'Sabido', 'amador@example.com', 'amador', 'ADMIN'),
        ('Carlos', 'Sánchez', 'carlos@example.com', 'password8', 'SOCIO'),
        ('Elena', 'Torres', 'elena@example.com', 'password9', 'SOCIO'),
        ('Pablo', 'Ramírez', 'pablo@example.com', 'password10', 'SOCIO');
+
+/*Para prueba de borrado*/
+INSERT INTO usuarios (nombre, apellido, email, password, rol)
+VALUES ('Empleado', 'Ramírez', 'empleado1@example.com', 'empleado', 'EMPLEADO'),
+       ('Empleado', 'Ramírez', 'empleado2@example.com', 'empleado', 'EMPLEADO'),
+       ('Empleado', 'Ramírez', 'empleado3@example.com', 'empleado', 'EMPLEADO'),
+       ('Empleado', 'Ramírez', 'empleado4@example.com', 'empleado', 'EMPLEADO'),
+       ('Empleado', 'Ramírez', 'empleado5@example.com', 'empleado', 'EMPLEADO');

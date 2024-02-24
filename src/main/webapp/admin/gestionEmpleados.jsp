@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Gestion Empleados</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <%--Sweet alert--%>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -35,7 +37,7 @@
                             <td>${empleado.email}</td>
                             <td>
                                 <a href="EditarEmpleado?id=${empleado.id}" class="btn btn-primary">Editar</a>
-                                <a href="EliminarEmpleado?id=${empleado.id}" class="btn btn-danger">Eliminar</a>
+                                <a href="EliminarEmpleado?id=${empleado.id}" class="btn btn-danger eliminar-empleado">Eliminar</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -48,5 +50,26 @@
 </main>
 
 <jsp:include page="../components/footer.jsp"/>
+<script>
+    document.querySelectorAll('.eliminar-empleado').forEach(empleado => {
+        empleado.addEventListener('click', function (e) {
+            let nombre = e.target.parentElement.parentElement.children[0].textContent;
+            e.preventDefault();
+            Swal.fire({
+                title: "¿Eliminar al empleado " + nombre + "?",
+                text: "Esta acción no se puede deshacer",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = e.target.href;
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

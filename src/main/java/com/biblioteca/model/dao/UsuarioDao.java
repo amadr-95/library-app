@@ -58,4 +58,16 @@ public class UsuarioDao {
         entityManager.close();
         return usuarios;
     }
+
+    public void eliminarUsuario(long empleadoId) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        Usuario usuario = entityManager.find(Usuario.class, empleadoId);
+        if (usuario != null) {
+            entityManager.remove(usuario);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+    }
+
 }

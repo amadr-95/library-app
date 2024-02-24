@@ -1,7 +1,5 @@
 package com.biblioteca.controladores.admin;
 
-import com.biblioteca.model.entidades.Rol;
-import com.biblioteca.model.entidades.Usuario;
 import com.biblioteca.servicios.ServicioUsuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,19 +8,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "GestionEmpleados", urlPatterns = {"/admin/GestionEmpleados"})
-public class GestionEmpleados extends HttpServlet {
+@WebServlet(name = "EliminarEmpleado", urlPatterns = {"/admin/EliminarEmpleado"})
+public class EliminarEmpleado extends HttpServlet {
+
+    public EliminarEmpleado() {
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException, ServletException {
         String vista = "/admin/gestionEmpleados.jsp";
-        //Devolvemos una lista con todos los usuarios que tienen el Rol de EMPLEADO
-        List<Usuario> listaEmpleados = ServicioUsuario.listarUsuariosPorRol(Rol.EMPLEADO);
-        request.setAttribute("listaEmpleados", listaEmpleados);
+        String id = request.getParameter("id");
+        if (id != null && !id.isEmpty()) {
+            long empleadoId = Long.parseLong(id);
+            //Eliminamos el usuario de la base de datos
+            ServicioUsuario.eliminarUsuario(empleadoId);
+            response.sendRedirect("GestionEmpleados");
+            return;
+        }
         request.getRequestDispatcher(vista).forward(request, response);
     }
 }
-
