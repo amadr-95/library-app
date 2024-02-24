@@ -20,20 +20,22 @@
     <section class="container">
         <a href="CrearAutor" class="btn btn-success mb-4">Nuevo Autor</a>
         <table class="table table-striped text-center">
-            <tr>
+            <tr class="align-middle">
                 <th>ID</th>
                 <th>Nombre del autor</th>
                 <th>Libros</th>
                 <th>Acciones</th>
             </tr>
             <c:forEach items="${listaAutores}" var="autor">
-                <tr>
+                <tr class="align-middle">
                     <td>${autor.id}</td>
                     <td>${autor.nombre}</td>
                     <td>
-                        <c:forEach items="${autor.libros}" var="libro" varStatus="loop">
-                            ${libro.titulo}<c:if test="${not loop.last}">,</c:if>
-                        </c:forEach>
+                        <ul class="list-group">
+                            <c:forEach items="${autor.libros}" var="libro">
+                                <li class="list-group-item">${libro.titulo}</li>
+                            </c:forEach>
+                        </ul>
                     </td>
                     <td>
                         <a href="EditarAutor?id=${autor.id}" class="btn btn-primary">Editar</a>

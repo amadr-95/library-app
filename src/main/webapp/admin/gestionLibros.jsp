@@ -20,7 +20,7 @@
     <section class="container">
         <a href="CrearLibro" class="btn btn-success mb-4">Nuevo Libro</a>
         <table class="table table-striped text-center">
-            <tr>
+            <tr class="align-middle">
                 <th>ISBN</th>
                 <th>Titulo</th>
                 <th>Autores</th>
@@ -31,7 +31,7 @@
                 <th>Acciones</th>
             </tr>
             <c:forEach items="${listaLibros}" var="libro">
-                <tr>
+                <tr class="align-middle">
                     <td>${libro.id}</td>
                     <td>${libro.titulo}</td>
                     <td>
@@ -42,9 +42,9 @@
                         </ul>
                     </td>
                     <td>
-                        <ul>
+                        <ul class="list-group">
                             <c:forEach items="${libro.generos}" var="genero">
-                                <ol>${genero.genero}</ol>
+                                <li class="list-group-item">${genero.genero}</li>
                             </c:forEach>
                         </ul>
                     </td>

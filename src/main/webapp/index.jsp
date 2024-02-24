@@ -20,7 +20,7 @@
     <c:otherwise>
     <section class="container">
         <table class="table table-striped text-center">
-            <tr>
+            <tr class="align-middle">
                 <th>ISBN</th>
                 <th>Título</th>
                 <th>Autores</th>
@@ -30,13 +30,15 @@
                 <th>Generos</th>
             </tr>
             <c:forEach items="${libros}" var="libro">
-                <tr>
+                <tr class="align-middle">
                     <td>${libro.isbn}</td>
                     <td>${libro.titulo}</td>
                     <td>
-                        <c:forEach items="${libro.autores}" var="autor" varStatus="loop">
-                            ${autor.nombre}<c:if test="${not loop.last}">,</c:if>
-                        </c:forEach>
+                        <ul class="list-group">
+                            <c:forEach items="${libro.autores}" var="autor">
+                                <li class="list-group-item">${autor.nombre}</li>
+                            </c:forEach>
+                        </ul>
                     </td>
                     <td>${libro.fechaEdicion}</td>
                     <td>
@@ -51,9 +53,11 @@
                     </td>
                     <td>${libro.numeroEjemplares}</td>
                     <td>
-                        <c:forEach items="${libro.generos}" var="genero" varStatus="loop">
-                            ${genero.genero}<c:if test="${not loop.last}">,</c:if>
-                        </c:forEach>
+                        <ul class="list-group">
+                            <c:forEach items="${libro.generos}" var="genero" varStatus="loop">
+                                <li class="list-group-item">${genero.genero}</li>
+                            </c:forEach>
+                        </ul>
                     </td>
                 </tr>
             </c:forEach>

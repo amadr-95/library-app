@@ -22,7 +22,7 @@
             <section class="container">
                 <a href="CrearEmpleado" class="btn btn-success mb-4">Nuevo empleado</a>
                 <table class="table table-striped text-center">
-                    <tr>
+                    <tr class="align-middle">
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
@@ -31,7 +31,7 @@
                     </tr>
                     <c:forEach items="${listaEmpleados}" var="empleado">
                         <c:if test="${sessionScope.usuario.nombre != empleado.nombre}">
-                            <tr>
+                            <tr class="align-middle">
                                 <td>${empleado.nombre}</td>
                                 <td>${empleado.apellido}</td>
                                 <td>${empleado.email}</td>
