@@ -3,7 +3,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark p-3">
         <div class="container">
-            <a class="navbar-brand text-white" href="Inicio">Biblioteca</a>
+            <a class="navbar-brand text-white" href="${pageContext.request.contextPath}/Inicio">Biblioteca</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -15,11 +15,12 @@
                         <%-- Cuando existe un usuario en la sesion --%>
                         <c:when test="${not empty sessionScope.usuario}">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="MenuPrincipal"><c:out
+                                <a class="nav-link text-white"
+                                   href="${pageContext.request.contextPath}/MenuPrincipal"><c:out
                                         value="Hola, ${sessionScope.usuario.nombre}"></c:out></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="CerrarSesion">Cerrar sesión</a>
+                                <a class="nav-link text-white" href="${pageContext.request.contextPath}/CerrarSesion">Cerrar sesión</a>
                             </li>
                         </c:when>
                         <c:otherwise>
