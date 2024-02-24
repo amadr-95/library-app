@@ -7,8 +7,9 @@ import java.util.List;
 
 public class ServicioLibro {
 
+    private static final LibroDao libroDao = new LibroDao();
+
     public static List<Libro> listarLibros() {
-        LibroDao libroDAO = new LibroDao();
-        return libroDAO.listarLibros();
+        return libroDao.listarLibros();
     }
 }

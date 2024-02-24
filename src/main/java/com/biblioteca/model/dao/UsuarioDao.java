@@ -1,9 +1,12 @@
 package com.biblioteca.model.dao;
 
+import com.biblioteca.model.entidades.Rol;
 import com.biblioteca.model.entidades.Usuario;
 import com.biblioteca.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+
+import java.util.List;
 
 public class UsuarioDao {
 
@@ -42,5 +45,17 @@ public class UsuarioDao {
         entityManager.getTransaction().commit();
         entityManager.close();
         return usuario;
+    }
+
+    public List<Usuario> listarUsuariosPorRol(Rol rol) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT u FROM Usuario u WHERE u.rol = :rol";
+        List<Usuario> usuarios = entityManager.createQuery(query, Usuario.class)
+                .setParameter("rol", rol)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return usuarios;
     }
 }

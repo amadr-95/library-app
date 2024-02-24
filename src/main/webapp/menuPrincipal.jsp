@@ -6,6 +6,15 @@
     <meta charset="UTF-8">
     <title>Menú Principal</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <style>
+        .card {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -21,8 +30,8 @@
                     <!-- Si el rol es ADMINISTRADOR, muestra opciones de administrador -->
                     <div class="col-md-4 text-center">
                         <div class="card card-body">
-                            <h5 class="card-title">Administrar usuarios</h5>
-                            <p class="card-text">Crea, edita y elimina usuarios del sistema</p>
+                            <h5 class="card-title">Administrar empleados</h5>
+                            <p class="card-text">Crea, edita y elimina empleados del sistema</p>
                                 <%--Este enlace es al servlet--%>
                             <a href="admin/GestionEmpleados" class="btn btn-primary">Acceder</a>
                         </div>
@@ -33,6 +42,17 @@
                             <p class="card-text">Crea, edita y elimina libros del sistema</p>
                                 <%--Este enlace es al servlet--%>
                             <a href="admin/GestionLibros" class="btn btn-primary">Acceder</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="card card-body">
+                            <h5 class="card-title">Administrar Autores y Generos</h5>
+                            <p class="card-text">Crea, edita y elimina autores y géneros del sistema</p>
+                                <%--Este enlace es al servlet--%>
+                            <div class="d-flex gap-2">
+                                <a href="admin/GestionAutores" class="w-50 btn btn-primary">Autores</a>
+                                <a href="admin/GestionGeneros" class="w-50 btn btn-primary">Géneros</a>
+                            </div>
                         </div>
                     </div>
                 </c:when>
@@ -60,26 +80,7 @@
                 </c:when>
                 <c:when test="${socio}">
                     <!-- Si el rol es SOCIO, muestra opciones de socio -->
-                    <div class="col-md-4 text-center">
-                        <div class="card card-body">
-                            <h5 class="card-title">Tarjeta 1</h5>
-                            <p class="card-text">Texto 1</p>
-                                <%--Este enlace es al servlet--%>
-                            <a href="socio/" class="btn btn-primary">Acceder</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card card-body">
-                            <h5 class="card-title">Tarjeta 2</h5>
-                            <p class="card-text">Texto 2</p>
-                                <%--Este enlace es al servlet--%>
-                            <a href="socio/" class="btn btn-primary">Acceder</a>
-                        </div>
-                    </div>
-                    <%--<ul>
-                        <li><a href="#">Buscar libros</a></li>
-                        <li><a href="#">Ver historial de préstamos</a></li>
-                    </ul>--%>
+                    <jsp:include page="socio/socioMenu.jsp"/>
                 </c:when>
                 <c:otherwise>
                     <!-- En caso de que el rol no coincida con ninguno de los anteriores -->
