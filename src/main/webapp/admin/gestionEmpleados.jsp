@@ -30,16 +30,19 @@
                         <th>Acciones</th>
                     </tr>
                     <c:forEach items="${listaEmpleados}" var="empleado">
-                        <tr>
-                            <td>${empleado.nombre}</td>
-                            <td>${empleado.apellido}</td>
-                            <td>${empleado.email}</td>
-                            <td>${empleado.rol}</td>
-                            <td>
-                                <a href="EditarEmpleado?id=${empleado.id}" class="btn btn-primary">Editar</a>
-                                <a href="EliminarEmpleado?id=${empleado.id}" class="btn btn-danger eliminar-empleado">Eliminar</a>
-                            </td>
-                        </tr>
+                        <c:if test="${sessionScope.usuario.nombre != empleado.nombre}">
+                            <tr>
+                                <td>${empleado.nombre}</td>
+                                <td>${empleado.apellido}</td>
+                                <td>${empleado.email}</td>
+                                <td>${empleado.rol}</td>
+                                <td>
+                                    <a href="EditarEmpleado?id=${empleado.id}" class="btn btn-primary">Editar</a>
+                                    <a href="EliminarEmpleado?id=${empleado.id}"
+                                       class="btn btn-danger eliminar-empleado">Eliminar</a>
+                                </td>
+                            </tr>
+                        </c:if>
                     </c:forEach>
                 </table>
             </section>
