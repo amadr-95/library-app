@@ -20,7 +20,7 @@ public class GestionEmpleados extends HttpServlet {
             throws ServletException, IOException {
         String vista = "/admin/gestionEmpleados.jsp";
         //Devolvemos una lista con todos los usuarios que tienen el Rol de EMPLEADO
-        List<Usuario> listaEmpleados = ServicioUsuario.listarUsuariosPorRol(Rol.EMPLEADO);
+        List<Usuario> listaEmpleados = ServicioUsuario.listarEmpleados();
         request.setAttribute("listaEmpleados", listaEmpleados);
         request.getRequestDispatcher(vista).forward(request, response);
     }

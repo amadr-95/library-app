@@ -21,27 +21,25 @@
         <c:otherwise>
             <section class="container">
                 <table class="table table-striped text-center">
-                    <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Acciones</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
                     </tr>
-                    </thead>
-                    <tbody>
                     <c:forEach items="${listaEmpleados}" var="empleado">
                         <tr>
                             <td>${empleado.nombre}</td>
                             <td>${empleado.apellido}</td>
                             <td>${empleado.email}</td>
+                            <td>${empleado.rol}</td>
                             <td>
                                 <a href="EditarEmpleado?id=${empleado.id}" class="btn btn-primary">Editar</a>
                                 <a href="EliminarEmpleado?id=${empleado.id}" class="btn btn-danger eliminar-empleado">Eliminar</a>
                             </td>
                         </tr>
                     </c:forEach>
-                    </tbody>
                 </table>
                 <a href="CrearEmpleado" class="btn btn-success">Nuevo empleado</a>
             </section>

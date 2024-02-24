@@ -34,10 +34,26 @@ public class ServicioUsuario {
     }
 
     public static List<Usuario> listarUsuariosPorRol(Rol rol) {
-        return usuarioDao.listarUsuariosPorRol(rol);
+        return usuarioDao.listarUsuarios(rol);
+    }
+
+    public static List<Usuario> listarUsuarios() {
+        return usuarioDao.listarUsuarios();
+    }
+
+    public static List<Usuario> listarEmpleados() {
+        return usuarioDao.listarEmpleados();
     }
 
     public static void eliminarUsuario(long empleadoId) {
         usuarioDao.eliminarUsuario(empleadoId);
+    }
+
+    public static Usuario buscarUsuarioPorId(long id) {
+        return usuarioDao.buscarUsuarioPorId(id);
+    }
+
+    public static void actualizarUsuario(Usuario usuario) {
+        usuarioDao.actualizarUsuario(usuario);
     }
 }

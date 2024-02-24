@@ -45,6 +45,15 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(Long id, String nombre, String apellido, String email, String password, Rol rol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+    }
+
     public Usuario(String nombre, String apellido, String email, String password) {
         this.nombre = nombre;
         this.apellido = apellido;

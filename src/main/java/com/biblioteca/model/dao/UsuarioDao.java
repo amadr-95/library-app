@@ -47,7 +47,30 @@ public class UsuarioDao {
         return usuario;
     }
 
-    public List<Usuario> listarUsuariosPorRol(Rol rol) {
+    public List<Usuario> listarUsuarios() {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT u FROM Usuario u";
+        List<Usuario> usuarios = entityManager.createQuery(query, Usuario.class)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return usuarios;
+    }
+
+    public List<Usuario> listarEmpleados() {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT u FROM Usuario u WHERE u.rol != :rol";
+        List<Usuario> usuarios = entityManager.createQuery(query, Usuario.class)
+                .setParameter("rol", Rol.SOCIO)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return usuarios;
+    }
+
+    public List<Usuario> listarUsuarios(Rol rol) {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
         String query = "SELECT u FROM Usuario u WHERE u.rol = :rol";
@@ -60,14 +83,38 @@ public class UsuarioDao {
     }
 
     public void eliminarUsuario(long empleadoId) {
-        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        /*EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
         Usuario usuario = entityManager.find(Usuario.class, empleadoId);
         if (usuario != null) {
             entityManager.remove(usuario);
             entityManager.getTransaction().commit();
             entityManager.close();
+        }*/
+        Usuario usuario = buscarUsuarioPorId(empleadoId);
+        if(usuario != null){
+            EntityManager entityManager = EntityManagerUtil.getEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.remove(usuario);
+            entityManager.getTransaction().commit();
+            entityManager.close();
         }
     }
 
+    public Usuario buscarUsuarioPorId(long id) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        Usuario usuario = entityManager.find(Usuario.class, id);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return usuario;
+    }
+
+    public void actualizarUsuario(Usuario usuario) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(usuario);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }
