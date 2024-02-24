@@ -1,32 +1,33 @@
 package com.biblioteca.model.dao;
 
-import com.biblioteca.model.entidades.Libro;
+import com.biblioteca.model.entidades.Autor;
 import com.biblioteca.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-public class LibroDao {
+public class AutorDao {
 
-    public LibroDao() {
+    public AutorDao() {
     }
 
-    public List<Libro> listarLibros() {
+    public static List<Autor> listarAutores() {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        String query = "SELECT l FROM Libro l";
-        List<Libro> libros = entityManager.createQuery(query, Libro.class)
+        String query = "SELECT a FROM Autor a";
+        List<Autor> autores = entityManager.createQuery(query, Autor.class)
                 .getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
-        return libros;
+        return autores;
     }
 
-    public void insertarLibro(Libro libro) {
+    public Autor buscarAutorPorId(long id) {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(libro);
+        Autor autor = entityManager.find(Autor.class, id);
         entityManager.getTransaction().commit();
         entityManager.close();
+        return autor;
     }
 }

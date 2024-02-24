@@ -1,7 +1,7 @@
 package com.biblioteca.controladores.admin;
 
-import com.biblioteca.model.entidades.Usuario;
-import com.biblioteca.servicios.ServicioUsuario;
+import com.biblioteca.model.entidades.Autor;
+import com.biblioteca.servicios.ServicioAutor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,16 +11,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "GestionEmpleados", urlPatterns = {"/admin/GestionEmpleados"})
-public class GestionEmpleados extends HttpServlet {
+@WebServlet(name = "GestionAutores", urlPatterns = {"/admin/GestionAutores"})
+public class GestionAutores extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String vista = "/admin/gestionEmpleados.jsp";
-        //Devolvemos una lista con todos los usuarios que tienen el Rol de EMPLEADO o ADMIN
-        List<Usuario> listaEmpleados = ServicioUsuario.listarEmpleados();
-        request.setAttribute("listaEmpleados", listaEmpleados);
+        String vista = "/admin/gestionAutores.jsp";
+        List<Autor> listaAutores = ServicioAutor.listarAutores();
+        request.setAttribute("listaAutores", listaAutores);
         request.getRequestDispatcher(vista).forward(request, response);
     }
 }

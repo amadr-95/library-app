@@ -66,6 +66,22 @@ public class Libro {
     public Libro() {
     }
 
+    public Libro(String isbn,
+                 String titulo,
+                 LocalDate fechaEdicion,
+                 String imagenPortada,
+                 int numeroEjemplares,
+                 List<Autor> autores,
+                 List<Genero> generos) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.fechaEdicion = fechaEdicion;
+        this.imagenPortada = imagenPortada;
+        this.numeroEjemplares = numeroEjemplares;
+        this.autores = autores;
+        this.generos = generos;
+    }
+
     public Long getId() {
         return id;
     }

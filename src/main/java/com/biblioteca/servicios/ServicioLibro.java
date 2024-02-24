@@ -12,4 +12,8 @@ public class ServicioLibro {
     public static List<Libro> listarLibros() {
         return libroDao.listarLibros();
     }
+
+    public static void insertarLibro(Libro libro) {
+        libroDao.insertarLibro(libro);
+    }
 }

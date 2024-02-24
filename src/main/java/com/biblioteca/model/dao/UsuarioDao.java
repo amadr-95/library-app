@@ -84,23 +84,6 @@ public class UsuarioDao {
     }
 
     public void eliminarUsuario(long empleadoId) {
-        /*EntityManager entityManager = EntityManagerUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        Usuario usuario = entityManager.find(Usuario.class, empleadoId);
-        if (usuario != null) {
-            entityManager.remove(usuario);
-            entityManager.getTransaction().commit();
-            entityManager.close();
-        }*/
-        /*Usuario usuario = buscarUsuarioPorId(empleadoId);
-        if(usuario != null){
-            EntityManager entityManager = EntityManagerUtil.getEntityManager();
-            entityManager.getTransaction().begin();
-            entityManager.remove(usuario);
-            entityManager.getTransaction().commit();
-            entityManager.close();
-        }*/
-
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("DELETE FROM Usuario u WHERE u.id = :id");
