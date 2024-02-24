@@ -5,6 +5,7 @@ import com.biblioteca.model.entidades.Usuario;
 import com.biblioteca.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -91,14 +92,22 @@ public class UsuarioDao {
             entityManager.getTransaction().commit();
             entityManager.close();
         }*/
-        Usuario usuario = buscarUsuarioPorId(empleadoId);
+        /*Usuario usuario = buscarUsuarioPorId(empleadoId);
         if(usuario != null){
             EntityManager entityManager = EntityManagerUtil.getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.remove(usuario);
             entityManager.getTransaction().commit();
             entityManager.close();
-        }
+        }*/
+
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("DELETE FROM Usuario u WHERE u.id = :id");
+        query.setParameter("id", empleadoId);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public Usuario buscarUsuarioPorId(long id) {

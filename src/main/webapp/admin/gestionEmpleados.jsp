@@ -20,6 +20,7 @@
         </c:when>
         <c:otherwise>
             <section class="container">
+                <a href="CrearEmpleado" class="btn btn-success mb-4">Nuevo empleado</a>
                 <table class="table table-striped text-center">
                     <tr>
                         <th>Nombre</th>
@@ -41,7 +42,6 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <a href="CrearEmpleado" class="btn btn-success">Nuevo empleado</a>
             </section>
         </c:otherwise>
     </c:choose>
