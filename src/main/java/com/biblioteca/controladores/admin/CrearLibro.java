@@ -14,18 +14,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @MultipartConfig
 @WebServlet(name = "CrearLibro", urlPatterns = {"/admin/CrearLibro"})
 public class CrearLibro extends HttpServlet {
+
+    public static final int TAM_BUFFER = 4 * 1024;
 
     public CrearLibro() {
     }
@@ -48,27 +46,8 @@ public class CrearLibro extends HttpServlet {
         String titulo = request.getParameter("titulo");
         int ejemplares = Integer.parseInt(request.getParameter("ejemplares"));
         LocalDate fechaEdicion = LocalDate.parse(request.getParameter("fechaEdicion"));
-
-        String nombreArchivo = "default.jpg";
-        //recoger el archivo de imagen de la portada
-        Part parte = request.getPart("portada");
-        if (parte != null) {
-            //esto es lo que se guardara en la bbdd
-            nombreArchivo = parte.getSubmittedFileName();
-            //obtener la ruta de la carpeta webapp en el proyecto
-            //TODO
-            /*String ruta = getServletContext().getRealPath("/webapp/img/");
-            try (OutputStream salida = new FileOutputStream(ruta)) {
-                byte[] buffer = new byte[1024];
-                int leido;
-                while ((leido = parte.getInputStream().read(buffer)) != -1) {
-                    salida.write(buffer, 0, leido);
-                }
-            } catch (IOException e) {
-                e.getStackTrace();
-                return;
-            }*/
-        }
+        //recoger el nombre de la portada y almacenarla en la carpeta img
+        String nombreArchivo = getNombreArchivo(request);
 
         //recoger los id de los autores
         String[] autoresArray = request.getParameterValues("autores");
@@ -124,6 +103,26 @@ public class CrearLibro extends HttpServlet {
         }
         request.getRequestDispatcher(vista).forward(request, response);*/
 
+    }
+
+    private String getNombreArchivo(HttpServletRequest request) throws IOException, ServletException {
+        Part parte = request.getPart("portada");
+        String nombreArchivo = null;
+        if (parte != null) {
+            nombreArchivo = parte.getSubmittedFileName();
+            InputStream entrada = parte.getInputStream();
+            String ruta = getServletContext().getRealPath("/img")
+                    + File.separator + nombreArchivo;
+            FileOutputStream salida = new FileOutputStream(ruta);
+            byte[] buffer = new byte[TAM_BUFFER];
+            while (entrada.available() > 0) {
+                int tam = entrada.read(buffer);
+                salida.write(buffer, 0, tam);
+            }
+            salida.close();
+            entrada.close();
+        }
+        return nombreArchivo;
     }
 
     private void listarAutoresYGeneros(HttpServletRequest request) {
