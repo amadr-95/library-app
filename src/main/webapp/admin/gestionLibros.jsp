@@ -5,6 +5,7 @@
 <head>
     <title>Gestión Libros</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 

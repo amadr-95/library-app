@@ -40,8 +40,6 @@ public class CrearLibro extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        //TODO
-        /*
         String vista = "/admin/crearLibro.jsp";
         //enviar los autores y los generos a la vista
         listarAutoresYGeneros(request);
@@ -55,10 +53,11 @@ public class CrearLibro extends HttpServlet {
         //recoger el archivo de imagen de la portada
         Part parte = request.getPart("portada");
         if (parte != null) {
-
             //esto es lo que se guardara en la bbdd
             nombreArchivo = parte.getSubmittedFileName();
-            String ruta = request.getServletContext().getRealPath("/img/" + nombreArchivo);
+            //obtener la ruta de la carpeta webapp en el proyecto
+            //TODO
+            /*String ruta = getServletContext().getRealPath("/webapp/img/");
             try (OutputStream salida = new FileOutputStream(ruta)) {
                 byte[] buffer = new byte[1024];
                 int leido;
@@ -66,9 +65,9 @@ public class CrearLibro extends HttpServlet {
                     salida.write(buffer, 0, leido);
                 }
             } catch (IOException e) {
-                response.sendRedirect("GestionLibros");
+                e.getStackTrace();
                 return;
-            }
+            }*/
         }
 
         //recoger los id de los autores
@@ -90,11 +89,11 @@ public class CrearLibro extends HttpServlet {
         }
 
 
-        *//*try {
+        /*try {
             ServicioLibro.comprobarCampos();
         } catch (Exception e) {
             e.printStackTrace();
-        }*//*
+        }*/
 
         //vamos a suponer que todos los campos son correctos
         //guardar el libro en la base de datos
@@ -104,8 +103,8 @@ public class CrearLibro extends HttpServlet {
         //redirigir a la pagina de gestion de libros
         response.sendRedirect("GestionLibros");
 
-        *//*
-        if (
+
+        /*if (
                 nombre != null && apellidos != null && email != null && password != null &&
                         !nombre.trim().isEmpty() && !email.trim().isEmpty() && !password.trim().isEmpty()
         ) {
@@ -123,8 +122,8 @@ public class CrearLibro extends HttpServlet {
             }
             return;
         }
-        request.getRequestDispatcher(vista).forward(request, response);
-    */
+        request.getRequestDispatcher(vista).forward(request, response);*/
+
     }
 
     private void listarAutoresYGeneros(HttpServletRequest request) {
