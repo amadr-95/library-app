@@ -3,6 +3,7 @@ package com.biblioteca.model.dao;
 import com.biblioteca.model.entidades.Autor;
 import com.biblioteca.util.EntityManagerUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -26,6 +27,26 @@ public class AutorDao {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
         Autor autor = entityManager.find(Autor.class, id);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return autor;
+    }
+
+    public void insertarAutor(Autor autor) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(autor);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public Autor buscarAutorPorNombre(String nombre) throws NoResultException {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT a FROM Autor a WHERE a.nombre = :nombre";
+        Autor autor = entityManager.createQuery(query, Autor.class)
+                .setParameter("nombre", nombre)
+                .getSingleResult();
         entityManager.getTransaction().commit();
         entityManager.close();
         return autor;

@@ -9,7 +9,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<!-- Modal -->
+<!-- Modal ver libros -->
 <div class="modal fade" id="modalLibros" tabindex="-1" aria-labelledby="modalLibrosLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -26,17 +26,46 @@
     </div>
 </div>
 
+<!-- Modal añadir autor -->
+<div class="modal fade" id="modalAutor" tabindex="-1" aria-labelledby="modalAutorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAutorLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del autor</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">
     <h1 class="text-center my-5">Gestión de Autores</h1>
+
     <c:choose>
     <c:when test="${empty listaAutores}">
         <p class="text-center">No hay autores disponibles en la lista</p>
     </c:when>
     <c:otherwise>
     <section class="container">
-        <a href="CrearAutor" class="btn btn-success mb-4">Nuevo Autor</a>
+        <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#modalAutor">
+            Nuevo Autor
+        </button>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger" role="alert">
+                    ${error}
+            </div>
+        </c:if>
         <table class="table table-striped text-center">
             <tr class="align-middle">
                 <th>ID</th>
@@ -49,12 +78,19 @@
                     <td>${autor.id}</td>
                     <td>${autor.nombre}</td>
                     <td>
-                        <button class="btn btn-primary ver-libros">Ver Libros (${autor.libros.size()})</button>
-                        <ul class="list-group" style="display: none;">
-                            <c:forEach items="${autor.libros}" var="libro">
-                                <li class="list-group-item">${libro.titulo}</li>
-                            </c:forEach>
-                        </ul>
+                        <c:choose>
+                            <c:when test="${autor.libros.size() == 0}">
+                                <span class="text-muted fw-light">No hay libros</span>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn btn-primary ver-libros">Ver Libros (${autor.libros.size()})</button>
+                                <ul class="list-group" style="display: none;">
+                                    <c:forEach items="${autor.libros}" var="libro">
+                                        <li class="list-group-item">${libro.titulo}</li>
+                                    </c:forEach>
+                                </ul>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                     <td>
                         <a href="EditarAutor?id=${autor.id}" class="btn btn-primary">Editar</a>

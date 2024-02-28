@@ -26,6 +26,7 @@ public class CrearEmpleado extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
         String vista = "/admin/crearEmpleado.jsp";
         request.setAttribute("roles", Rol.values());
         String nombre = request.getParameter("nombre");

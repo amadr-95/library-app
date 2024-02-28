@@ -5,7 +5,7 @@ VALUES ('Amador', 'Sabido', 'amador@example.com', 'amador', 'ADMIN'),
        ('Ana', 'Martínez', 'ana@example.com', 'password4', 'SOCIO'),
        ('Sara', 'Fernández', 'sara@example.com', 'password5', 'SOCIO'),
        ('Diego', 'Ruiz', 'diego@example.com', 'password6', 'SOCIO'),
-       ('Laura', 'Díaz', 'laura@example.com', 'password7', 'EMPELADO'),
+       ('Laura', 'Díaz', 'laura@example.com', 'password7', 'EMPLEADO'),
        ('Carlos', 'Sánchez', 'carlos@example.com', 'password8', 'SOCIO'),
        ('Elena', 'Torres', 'elena@example.com', 'password9', 'SOCIO'),
        ('Pablo', 'Ramírez', 'pablo@example.com', 'password10', 'SOCIO');

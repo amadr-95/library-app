@@ -29,6 +29,10 @@ public class Autor {
     public Autor() {
     }
 
+    public Autor(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Long getId() {
         return id;
     }

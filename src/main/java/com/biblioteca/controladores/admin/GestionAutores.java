@@ -22,5 +22,25 @@ public class GestionAutores extends HttpServlet {
         request.setAttribute("listaAutores", listaAutores);
         request.getRequestDispatcher(vista).forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String vista = "/admin/gestionAutores.jsp";
+        String nombre = request.getParameter("nombre");
+        //comprobamos que el nombre no sea nulo o vacio
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            //comprobamos que no este repetido
+            try {
+                if (ServicioAutor.buscarAutorPorNombre(nombre) != null)
+                    throw new IllegalArgumentException("El nombre del autor ya existe");
+                ServicioAutor.insertarAutor(new Autor(nombre));
+                response.sendRedirect("GestionAutores");
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("error", e.getMessage());
+                doGet(request, response);
+            }
+        }
+    }
 }
 

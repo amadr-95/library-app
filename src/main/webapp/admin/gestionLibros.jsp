@@ -52,7 +52,7 @@
                     <td>
                         <c:choose>
                             <c:when test="${empty libro.imagenPortada}">
-                                <p class="font-monospace">Sin portada</p>
+                                <p class="text-muted fw-light">Sin portada</p>
                             </c:when>
                             <c:otherwise>
                                 <img src="../img/${libro.imagenPortada}" alt="${libro.titulo}" width="100" height="auto">

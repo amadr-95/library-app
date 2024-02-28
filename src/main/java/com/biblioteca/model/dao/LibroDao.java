@@ -46,8 +46,10 @@ public class LibroDao {
     public void eliminarLibro(long id) {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        Libro libro = entityManager.find(Libro.class, id);
-        entityManager.remove(libro);
+        String query = "DELETE FROM Libro l WHERE l.id = :id";
+        entityManager.createQuery(query)
+                .setParameter("id", id)
+                .executeUpdate();
         entityManager.getTransaction().commit();
         entityManager.close();
     }
