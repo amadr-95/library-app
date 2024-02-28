@@ -42,6 +42,7 @@
                             <div class="mb-3">
                                 <label for="portada" class="form-label">Imagen de portada <span>(opcional)</span></label>
                                 <input type="file" class="form-control" id="portada" name="portada">
+                                <span class="form-text">Solo se permiten archivos de tipo .png</span>
                             </div>
                             <%--Select multiple para los autores--%>
                             <div class="mb-3">

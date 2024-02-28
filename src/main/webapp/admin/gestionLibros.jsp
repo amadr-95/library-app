@@ -50,8 +50,16 @@
                         </ul>
                     </td>
                     <td>
-                        <img src="../img/${libro.imagenPortada}" alt="${libro.titulo}" width="100" height="auto"/>
+                        <c:choose>
+                            <c:when test="${empty libro.imagenPortada}">
+                                <p class="font-monospace">Sin portada</p>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="../img/${libro.imagenPortada}" alt="${libro.titulo}" width="100" height="auto">
+                            </c:otherwise>
+                        </c:choose>
                     </td>
+
                     <td>${libro.numeroEjemplares}</td>
                     <td>
                         <c:out value="${libro.prestamos.size()}"/>
