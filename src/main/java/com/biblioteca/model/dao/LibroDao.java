@@ -23,6 +23,18 @@ public class LibroDao {
         return libros;
     }
 
+    public List<Libro> listarLibros(String filtro) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT l FROM Libro l WHERE l.titulo LIKE :filtro";
+        List<Libro> libros = entityManager.createQuery(query, Libro.class)
+                .setParameter("filtro", "%" + filtro + "%")
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return libros;
+    }
+
     public void insertarLibro(Libro libro) {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();

@@ -13,6 +13,10 @@ public class ServicioLibro {
         return libroDao.listarLibros();
     }
 
+    public static List<Libro> listarLibros(String filtro) {
+        return libroDao.listarLibros(filtro);
+    }
+
     public static void insertarLibro(Libro libro) throws IllegalArgumentException {
         libroDao.insertarLibro(libro);
     }
