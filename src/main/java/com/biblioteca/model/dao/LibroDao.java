@@ -42,4 +42,13 @@ public class LibroDao {
         entityManager.close();
         return libro;
     }
+
+    public void eliminarLibro(long id) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        Libro libro = entityManager.find(Libro.class, id);
+        entityManager.remove(libro);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

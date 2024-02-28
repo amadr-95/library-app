@@ -24,4 +24,8 @@ public class ServicioLibro {
             return null;
         }
     }
+
+    public static void eliminarLibro(long id) {
+        libroDao.eliminarLibro(id);
+    }
 }

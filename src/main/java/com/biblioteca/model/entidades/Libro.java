@@ -42,7 +42,7 @@ public class Libro {
     private int numeroEjemplares;
 
     //un libro puede tener varios autores
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "libro_autor", //nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "libro_id", nullable = false), //fk de la tabla actual
@@ -51,7 +51,7 @@ public class Libro {
     private List<Autor> autores = new ArrayList<>();
 
     //un libro puede pertenecer a varios generos
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "libro_genero", //nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "libro_id", nullable = false), //fk de la tabla actual
