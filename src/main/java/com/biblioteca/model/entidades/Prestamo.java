@@ -3,10 +3,15 @@ package com.biblioteca.model.entidades;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "prestamos")
 public class Prestamo {
+
+   /* @Transient //no se mappea a la base de datos
+    private final int DIAS_MAXIMOS_PRESTAMO = 5;*/
+
     @Id
     @SequenceGenerator(
             name = "prestamo_sequence",
@@ -22,11 +27,14 @@ public class Prestamo {
     @Column(name = "fecha_prestamo", nullable = false)
     private LocalDate fechaPrestamo;
 
+    @Column(name = "fecha_devolucion")
+    private LocalDate fechaDevolucion;
+
     @ManyToOne
     @JoinColumn(name = "libro_id", nullable = false)
     private Libro libro;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
@@ -49,6 +57,14 @@ public class Prestamo {
         this.fechaPrestamo = fechaPrestamo;
     }
 
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
     public Libro getLibro() {
         return libro;
     }
@@ -63,5 +79,11 @@ public class Prestamo {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public int getDiasPrestamo() {
+        return fechaDevolucion == null ?
+                Period.between(fechaPrestamo, LocalDate.now()).getDays() : //dinamico
+                Period.between(fechaPrestamo, fechaDevolucion).getDays(); //fijo
     }
 }

@@ -2,6 +2,9 @@ package com.biblioteca.model.entidades;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(
         name = "usuarios",
@@ -38,9 +41,9 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    //el usuario solo puede tener un prestamo
-    @OneToOne(mappedBy = "usuario")
-    private Prestamo prestamo;
+    //un usuario puede tener varios prestamos
+    @OneToMany(mappedBy = "usuario")
+    private List<Prestamo> prestamos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -118,11 +121,11 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public Prestamo getPrestamo() {
-        return prestamo;
+    public List<Prestamo> getPrestamos() {
+        return prestamos;
     }
 
-    public void setPrestamo(Prestamo prestamo) {
-        this.prestamo = prestamo;
+    public void setPrestamo(List<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
 }

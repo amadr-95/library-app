@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-    <jsp:include page="components/bootstrap.jsp" />
+    <jsp:include page="components/bootstrap.jsp"/>
     <style>
         .card {
             transition: transform 0.3s ease-in-out;
@@ -79,8 +79,16 @@
                     </ul>--%>
                 </c:when>
                 <c:when test="${socio}">
-                    <!-- Si el rol es SOCIO, muestra opciones de socio -->
-                    <jsp:include page="socio/socioMenu.jsp"/>
+                    <!-- redirigir al servlet GestionPrestamos -->
+                    <%--<c:redirect url="socio/GestionPrestamos"/>--%>
+                    <div class="container justify-content-center col-4 text-center">
+                        <div class="card card-body">
+                            <h5 class="card-title text-center">Gestionar préstamos</h5>
+                            <p class="card-text">Gestiona tus préstamos y devoluciones</p>
+                            <a href="socio/GestionPrestamos" class="btn btn-primary">Acceder</a>
+                        </div>
+                    </div>
+
                 </c:when>
                 <c:otherwise>
                     <!-- En caso de que el rol no coincida con ninguno de los anteriores -->
