@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>Gestión Libros</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <jsp:include page="../components/bootstrap.jsp"/>
+    <jsp:include page="../components/sweetalert.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
 

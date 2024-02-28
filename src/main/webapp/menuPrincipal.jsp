@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <jsp:include page="components/bootstrap.jsp" />
     <style>
         .card {
             transition: transform 0.3s ease-in-out;

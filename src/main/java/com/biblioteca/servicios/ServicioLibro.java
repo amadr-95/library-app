@@ -13,7 +13,10 @@ public class ServicioLibro {
         return libroDao.listarLibros();
     }
 
-    public static void insertarLibro(Libro libro) {
+    public static void insertarLibro(Libro libro) throws IllegalArgumentException{
+        //compobaciones antes de insertar el libro
+        if(libro.getIsbn().trim().isEmpty() || libro.getIsbn().length() != 13)
+            throw new IllegalArgumentException("isbn no válido");
         libroDao.insertarLibro(libro);
     }
 }

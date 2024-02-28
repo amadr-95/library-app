@@ -4,8 +4,7 @@
 <html>
 <head>
     <title>Editar Empleado</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <jsp:include page="../components/bootstrap.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
 

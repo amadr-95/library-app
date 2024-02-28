@@ -3,8 +3,7 @@
 <html>
 <head>
     <title>Nuevo Libro</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <jsp:include page="../components/bootstrap.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -30,18 +29,18 @@
                             </div>
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Titulo</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo">
+                                <input type="text" class="form-control" id="titulo" name="titulo" required>
                             </div>
                             <div class="mb-3">
                                 <label for="ejemplares" class="form-label">Numero de ejemplares</label>
-                                <input type="number" class="form-control" id="ejemplares" name="ejemplares">
+                                <input type="number" class="form-control" id="ejemplares" name="ejemplares" required>
                             </div>
                             <div class="mb-3">
                                 <label for="fechaEdicion" class="form-label">Fecha de edición</label>
                                 <input type="date" class="form-control" id="fechaEdicion" name="fechaEdicion" required>
                             </div>
                             <div class="mb-3">
-                                <label for="portada" class="form-label">Imagen de portada</label>
+                                <label for="portada" class="form-label">Imagen de portada <span>(opcional)</span></label>
                                 <input type="file" class="form-control" id="portada" name="portada">
                             </div>
                             <%--Select multiple para los autores--%>

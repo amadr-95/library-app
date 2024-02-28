@@ -40,7 +40,7 @@ public class CrearEmpleado extends HttpServlet {
         ) {
             //comprobar que el email no esta en uso
             Usuario usuario = ServicioUsuario.buscarUsuarioPorEmail(email);
-            if (usuario != null && !usuario.getEmail().equals(email)) {
+            if (usuario != null) {
                 request.setAttribute("error", "El email ya esta en uso");
                 request.getRequestDispatcher(vista).forward(request, response);
             } else {

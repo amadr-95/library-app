@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <jsp:include page="components/bootstrap.jsp" />
 </head>
 <body class="d-flex flex-column min-vh-100">
 

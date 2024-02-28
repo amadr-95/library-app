@@ -3,8 +3,7 @@
 <html>
 <head>
     <title>Registro</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <jsp:include page="../components/bootstrap.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -29,7 +28,7 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" required>
                             </div>
                             <div class="mb-3">
-                                <label for="apellidos" class="form-label">Apellidos <span>(Opcional)</span></label>
+                                <label for="apellidos" class="form-label">Apellidos <span>(opcional)</span></label>
                                 <input type="text" class="form-control" id="apellidos" name="apellidos">
                             </div>
                             <div class="mb-3">

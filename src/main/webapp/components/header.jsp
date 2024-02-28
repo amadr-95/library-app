@@ -16,11 +16,20 @@
                         <c:when test="${not empty sessionScope.usuario}">
                             <li class="nav-item">
                                 <a class="nav-link text-white"
-                                   href="${pageContext.request.contextPath}/MenuPrincipal"><c:out
-                                        value="Hola, ${sessionScope.usuario.nombre}"></c:out></a>
+                                   href="${pageContext.request.contextPath}/MenuPrincipal">
+                                    <c:out
+                                            value="Hola, ${sessionScope.usuario.nombre}">
+                                    </c:out>
+                                    <sub>
+                                        <c:out
+                                                value="(${sessionScope.usuario.rol})">
+                                        </c:out>
+                                    </sub>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="${pageContext.request.contextPath}/CerrarSesion">Cerrar sesión</a>
+                                <a class="nav-link text-white" href="${pageContext.request.contextPath}/CerrarSesion">Cerrar
+                                    sesión</a>
                             </li>
                         </c:when>
                         <c:otherwise>
