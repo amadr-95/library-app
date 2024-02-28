@@ -28,6 +28,10 @@ public class Genero {
     public Genero() {
     }
 
+    public Genero(String genero) {
+        this.genero = genero;
+    }
+
     public Long getId() {
         return id;
     }
