@@ -82,6 +82,24 @@ public class Libro {
         this.generos = generos;
     }
 
+    public Libro(Long id,
+                 String isbn,
+                 String titulo,
+                 LocalDate fechaEdicion,
+                 String imagenPortada,
+                 int numeroEjemplares,
+                 List<Autor> autores,
+                 List<Genero> generos) {
+        this.id = id;
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.fechaEdicion = fechaEdicion;
+        this.imagenPortada = imagenPortada;
+        this.numeroEjemplares = numeroEjemplares;
+        this.autores = autores;
+        this.generos = generos;
+    }
+
     public Long getId() {
         return id;
     }

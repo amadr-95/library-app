@@ -37,7 +37,7 @@
             <div class="modal-body">
                 <form method="post">
                     <div class="mb-3">
-                        <label for="genero" class="form-label">Nombre del autor</label>
+                        <label for="genero" class="form-label">Nombre del género</label>
                         <input type="text" class="form-control" id="genero" name="genero" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -59,7 +59,7 @@
     <c:otherwise>
     <section class="container">
         <button type="button" class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#modalGenero">
-            Nuevo Genero
+            Nuevo Género
         </button>
         <c:if test="${not empty error}">
             <div class="alert alert-danger" role="alert">

@@ -20,6 +20,11 @@
     <c:otherwise>
     <section class="container">
         <a href="CrearLibro" class="btn btn-success mb-4">Nuevo Libro</a>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger" role="alert">
+                    ${error}
+            </div>
+        </c:if>
         <table class="table table-striped text-center">
             <tr class="align-middle">
                 <th>ISBN</th>

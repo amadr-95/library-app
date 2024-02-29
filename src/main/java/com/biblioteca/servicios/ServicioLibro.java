@@ -29,7 +29,19 @@ public class ServicioLibro {
         }
     }
 
+    public static Libro buscarLibroPorId(long id) {
+        try{
+            return libroDao.buscarLibroPorId(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static void eliminarLibro(long id) {
         libroDao.eliminarLibro(id);
+    }
+
+    public static void actualizarLibro(Libro libro) {
+        libroDao.actualizarLibro(libro);
     }
 }

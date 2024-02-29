@@ -55,6 +55,17 @@ public class LibroDao {
         return libro;
     }
 
+    public Libro buscarLibroPorId(long id) throws NoResultException {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT l FROM Libro l WHERE l.id = :id";
+        Libro libro = entityManager.createQuery(query, Libro.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        entityManager.close();
+        return libro;
+    }
+
     public void eliminarLibro(long id) {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
@@ -62,6 +73,14 @@ public class LibroDao {
         entityManager.createQuery(query)
                 .setParameter("id", id)
                 .executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public void actualizarLibro(Libro libro) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(libro);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
