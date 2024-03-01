@@ -1,5 +1,6 @@
 package com.biblioteca.controladores.socio;
 
+import com.biblioteca.model.entidades.Usuario;
 import com.biblioteca.servicios.ServicioPrestamo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

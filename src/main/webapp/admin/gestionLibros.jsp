@@ -27,7 +27,7 @@
         </c:if>
         <table class="table table-striped text-center">
             <tr class="align-middle">
-                <th>ISBN</th>
+                <th>ID</th>
                 <th>Titulo</th>
                 <th>Autores</th>
                 <th>Generos</th>

@@ -33,4 +33,16 @@ public class PrestamoDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public List<Prestamo> listarPrestamosPorUsuario(long id) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT p FROM Prestamo p WHERE p.usuario.id = :id";
+        List<Prestamo> prestamos = entityManager.createQuery(query, Prestamo.class)
+                .setParameter("id", id)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return prestamos;
+    }
 }

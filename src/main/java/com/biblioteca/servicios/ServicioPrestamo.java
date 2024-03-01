@@ -18,4 +18,8 @@ public class ServicioPrestamo {
     public static void establecerFechaDevolucion(long prestamoId, LocalDate fechaDevolucion){
         prestamoDao.establecerFechaDevolucion(prestamoId, fechaDevolucion);
     }
+
+    public static List<Prestamo> listarPrestamosPorUsuario(long id) {
+        return prestamoDao.listarPrestamosPorUsuario(id);
+    }
 }

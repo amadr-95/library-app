@@ -1,6 +1,7 @@
 package com.biblioteca.servicios;
 
 import com.biblioteca.model.dao.UsuarioDao;
+import com.biblioteca.model.entidades.Prestamo;
 import com.biblioteca.model.entidades.Rol;
 import com.biblioteca.model.entidades.Usuario;
 import jakarta.persistence.NoResultException;
