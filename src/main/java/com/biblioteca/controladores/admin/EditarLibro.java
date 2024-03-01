@@ -3,9 +3,8 @@ package com.biblioteca.controladores.admin;
 import com.biblioteca.model.entidades.Autor;
 import com.biblioteca.model.entidades.Genero;
 import com.biblioteca.model.entidades.Libro;
-import com.biblioteca.servicios.ServicioAutor;
-import com.biblioteca.servicios.ServicioGenero;
 import com.biblioteca.servicios.ServicioLibro;
+import com.biblioteca.util.LibroUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,15 +15,11 @@ import jakarta.servlet.http.Part;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @MultipartConfig
 @WebServlet(name = "EditarLibro", urlPatterns = {"/admin/EditarLibro"})
 public class EditarLibro extends HttpServlet {
-
-    private final int TAM_BUFFER = 4 * 1024;
-    private final String isbnRegex = "^\\d{13}$";
 
     public EditarLibro() {
     }
@@ -41,7 +36,7 @@ public class EditarLibro extends HttpServlet {
             Libro libro = ServicioLibro.buscarLibroPorId(libroId);
             if (libro != null) {
                 request.setAttribute("libroEditar", libro);
-                listarAutoresYGeneros(request);
+                LibroUtils.listarAutoresYGeneros(request);
                 request.getRequestDispatcher(vista).forward(request, response);
             } else {
                 response.sendRedirect("GestionLibros");
@@ -71,133 +66,82 @@ public class EditarLibro extends HttpServlet {
         String[] generosArray = request.getParameterValues("generos");
 
         //comprobaciones
-        if (camposRequeridosNoVacios(isbn, titulo, ejemplaresString, fechaEdicionString, autoresArray, generosArray)) {
+        if (LibroUtils.camposRequeridosNoVacios(isbn, titulo, ejemplaresString, fechaEdicionString, autoresArray, generosArray)) {
             try {
+                //obtenemos el libro por su id
+                Libro libroActual = ServicioLibro.buscarLibroPorId(id);
+
                 // Validar el ISBN
-                if (!isbn.matches(isbnRegex)) {
+                if (!LibroUtils.validarIsbn(isbn)) {
                     throw new IllegalArgumentException("El ISBN debe tener 13 caracteres numéricos y sin espacios");
                 }
 
-                // Validar que el ISBN no esté en uso
+                // Validar que el ISBN no esté en uso por otro libro
                 Libro libro = ServicioLibro.buscarLibroPorIsbn(isbn);
-                if (libro != null && libro.getId() != id){
+                if (libro != null && libro.getId() != id) {
                     throw new IllegalArgumentException("El ISBN ya está en uso");
                 }
 
                 int ejemplares = Integer.parseInt(ejemplaresString);
 
-                if (ejemplares < 1) {
+                if (!LibroUtils.validarEjemplares(ejemplares)) {
                     throw new IllegalArgumentException("El número de ejemplares debe ser mayor que 0");
                 }
+
                 LocalDate fechaEdicion = LocalDate.parse(fechaEdicionString);
 
                 // Recoger autores y géneros
-                List<Autor> autores = obtenerAutores(autoresArray);
-                List<Genero> generos = obtenerGeneros(generosArray);
+                List<Autor> autores = LibroUtils.obtenerAutores(autoresArray);
+                List<Genero> generos = LibroUtils.obtenerGeneros(generosArray);
 
-                String nombreArchivo = "";
-                if (portada != null) {
-                    nombreArchivo = portada.getSubmittedFileName();
-                    if (!nombreArchivo.trim().isEmpty()) {
-                        //si el nombre del archivo no esta vacio, guardamos el archivo nuevo
-                        guardarArchivo(portada, nombreArchivo);
-                        eliminarArchivo(request.getParameter("portadaActual"));
-                    } else {
-                        //si el nombre del archivo esta vacio, usamos el nombre del archivo actual
-                        nombreArchivo = request.getParameter("portadaActual");
-                    }
-
-
+                String nombreArchivo = portada.getSubmittedFileName();
+                if (!nombreArchivo.trim().isEmpty()) {
+                    //si el nombre del archivo no esta vacio, guardamos el archivo nuevo
+                    String ruta = getServletContext().getRealPath("/img");
+                    LibroUtils.guardarArchivo(portada, ruta, nombreArchivo);
+                    //eliminamos el archivo que hubiese en ese momento
+                    LibroUtils.eliminarArchivo(ruta, request.getParameter("portadaActual"));
+                } else {
+                    //si el nombre del archivo esta vacio, usamos el nombre del archivo actual
+                    nombreArchivo = request.getParameter("portadaActual");
                 }
                 // Guardar el libro en la base de datos
-                Libro libroEditado = new Libro(id, isbn, titulo, fechaEdicion, nombreArchivo, ejemplares, autores, generos);
-                ServicioLibro.actualizarLibro(libroEditado);
+                //Libro libroEditado = new Libro(id, isbn, titulo, fechaEdicion, nombreArchivo, ejemplares, autores, generos);
+                //seteamos los nuevos valores al libro
+                libroActual.setIsbn(isbn);
+                libroActual.setTitulo(titulo);
+                libroActual.setFechaEdicion(fechaEdicion);
+                libroActual.setImagenPortada(nombreArchivo);
+                libroActual.setNumeroEjemplares(ejemplares);
+                libroActual.setAutores(autores);
+                libroActual.setGeneros(generos);
+                //actualizamos el libroActual
+                ServicioLibro.actualizarLibro(libroActual);
 
                 // Redirigir a la página de gestión de libros
                 response.sendRedirect("GestionLibros");
 
             } catch (IllegalArgumentException e) {
                 request.setAttribute("error", e.getMessage());
-                listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
-                request.setAttribute("libroEditar", new Libro(id, isbn, titulo, LocalDate.parse(fechaEdicionString), request.getParameter("portadaActual"), Integer.parseInt(ejemplaresString), obtenerAutores(autoresArray), obtenerGeneros(generosArray)));
+                LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
+                request.setAttribute("libroEditar",
+                        new Libro(
+                                id,
+                                isbn,
+                                titulo,
+                                LocalDate.parse(fechaEdicionString),
+                                request.getParameter("portadaActual"),
+                                Integer.parseInt(ejemplaresString),
+                                LibroUtils.obtenerAutores(autoresArray),
+                                LibroUtils.obtenerGeneros(generosArray))
+                );
                 request.getRequestDispatcher(vista).forward(request, response);
             }
         } else {
             request.setAttribute("error", "Faltan campos por rellenar");
-            listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
+            LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
             request.getRequestDispatcher(vista).forward(request, response);
         }
     }
 
-    private void guardarArchivo(Part file, String nombreArchivo) throws IOException {
-        InputStream entrada = file.getInputStream();
-        String ruta = getServletContext().getRealPath("/img")
-                + File.separator + nombreArchivo;
-        FileOutputStream salida = new FileOutputStream(ruta);
-        byte[] buffer = new byte[TAM_BUFFER];
-        while (entrada.available() > 0) {
-            int tam = entrada.read(buffer);
-            salida.write(buffer, 0, tam);
-        }
-        salida.close();
-        entrada.close();
-    }
-
-    private void eliminarArchivo(String nombreArchivo) {
-        if (nombreArchivo != null && !nombreArchivo.trim().isEmpty()) {
-            String ruta = getServletContext().getRealPath("/img")
-                    + File.separator + nombreArchivo;
-            File archivo = new File(ruta);
-            if (archivo.exists()) {
-                archivo.delete();
-            }
-        }
-    }
-
-    private void listarAutoresYGeneros(HttpServletRequest request) {
-        List<Autor> autores = ServicioAutor.listarAutores();
-        List<Genero> generos = ServicioGenero.listarGeneros();
-        request.setAttribute("autores", autores);
-        request.setAttribute("generos", generos);
-    }
-
-    private boolean camposRequeridosNoVacios(String isbn,
-                                             String titulo,
-                                             String ejemplares,
-                                             String fechaEdicion,
-                                             String[] autores,
-                                             String[] generos) {
-        return isbn != null &&
-                titulo != null &&
-                ejemplares != null &&
-                fechaEdicion != null &&
-                autores != null &&
-                generos != null &&
-                !isbn.isEmpty() &&
-                !titulo.isEmpty() &&
-                !ejemplares.isEmpty() &&
-                !fechaEdicion.isEmpty() &&
-                autores.length > 0 &&
-                generos.length > 0;
-    }
-
-    private List<Autor> obtenerAutores(String[] autoresArray) {
-        List<Autor> autores = new ArrayList<>();
-        for (String id : autoresArray) {
-            Autor autor = ServicioAutor.buscarAutorPorId(Integer.parseInt(id));
-            if (autor != null)
-                autores.add(autor);
-        }
-        return autores;
-    }
-
-    private List<Genero> obtenerGeneros(String[] generosArray) {
-        List<Genero> generos = new ArrayList<>();
-        for (String id : generosArray) {
-            Genero genero = ServicioGenero.buscarGeneroPorId(Integer.parseInt(id));
-            if (genero != null)
-                generos.add(genero);
-        }
-        return generos;
-    }
 }
