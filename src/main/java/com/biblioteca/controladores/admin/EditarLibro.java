@@ -67,81 +67,82 @@ public class EditarLibro extends HttpServlet {
 
         //comprobaciones
         if (LibroUtils.camposRequeridosNoVacios(isbn, titulo, ejemplaresString, fechaEdicionString, autoresArray, generosArray)) {
-            try {
-                //obtenemos el libro por su id
-                Libro libroActual = ServicioLibro.buscarLibroPorId(id);
+            //obtenemos el libro por su id
+            Libro libroActual = ServicioLibro.buscarLibroPorId(id);
+            if (libroActual != null) {
+                try {
+                    // Validar el ISBN
+                    if (!LibroUtils.validarIsbn(isbn)) {
+                        throw new IllegalArgumentException("El ISBN debe tener 13 caracteres numéricos y sin espacios");
+                    }
 
-                // Validar el ISBN
-                if (!LibroUtils.validarIsbn(isbn)) {
-                    throw new IllegalArgumentException("El ISBN debe tener 13 caracteres numéricos y sin espacios");
+                    // Validar que el ISBN no esté en uso por otro libro
+                    Libro libro = ServicioLibro.buscarLibroPorIsbn(isbn);
+                    if (libro != null && libro.getId() != id) {
+                        throw new IllegalArgumentException("El ISBN ya está en uso");
+                    }
+
+                    int ejemplares = Integer.parseInt(ejemplaresString);
+
+                    if (!LibroUtils.validarEjemplares(ejemplares)) {
+                        throw new IllegalArgumentException("El número de ejemplares debe ser mayor que 0");
+                    }
+
+                    LocalDate fechaEdicion = LocalDate.parse(fechaEdicionString);
+
+                    // Recoger autores y géneros
+                    List<Autor> autores = LibroUtils.obtenerAutores(autoresArray);
+                    List<Genero> generos = LibroUtils.obtenerGeneros(generosArray);
+
+                    String nombreArchivo = portada.getSubmittedFileName();
+                    if (!nombreArchivo.trim().isEmpty()) {
+                        //si el nombre del archivo no esta vacio, guardamos el archivo nuevo
+                        String ruta = getServletContext().getRealPath("/img");
+                        LibroUtils.guardarArchivo(portada, ruta, nombreArchivo);
+                        //eliminamos el archivo que hubiese en ese momento
+                        LibroUtils.eliminarArchivo(ruta, request.getParameter("portadaActual"));
+                    } else {
+                        //si el nombre del archivo esta vacio, usamos el nombre del archivo actual
+                        nombreArchivo = request.getParameter("portadaActual");
+                    }
+                    // Guardar el libro en la base de datos
+                    //Libro libroEditado = new Libro(id, isbn, titulo, fechaEdicion, nombreArchivo, ejemplares, autores, generos);
+                    //seteamos los nuevos valores al libro
+                    libroActual.setIsbn(isbn);
+                    libroActual.setTitulo(titulo);
+                    libroActual.setFechaEdicion(fechaEdicion);
+                    libroActual.setImagenPortada(nombreArchivo);
+                    libroActual.setNumeroEjemplares(ejemplares);
+                    libroActual.setAutores(autores);
+                    libroActual.setGeneros(generos);
+                    //actualizamos el libroActual
+                    ServicioLibro.actualizarLibro(libroActual);
+
+                    // Redirigir a la página de gestión de libros
+                    response.sendRedirect("GestionLibros");
+                    return;
+
+                } catch (IllegalArgumentException e) {
+                    request.setAttribute("error", e.getMessage());
+                    LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
+                    request.setAttribute("libroEditar",
+                            new Libro(
+                                    id,
+                                    isbn,
+                                    titulo,
+                                    LocalDate.parse(fechaEdicionString),
+                                    request.getParameter("portadaActual"),
+                                    Integer.parseInt(ejemplaresString),
+                                    LibroUtils.obtenerAutores(autoresArray),
+                                    LibroUtils.obtenerGeneros(generosArray))
+                    );
                 }
-
-                // Validar que el ISBN no esté en uso por otro libro
-                Libro libro = ServicioLibro.buscarLibroPorIsbn(isbn);
-                if (libro != null && libro.getId() != id) {
-                    throw new IllegalArgumentException("El ISBN ya está en uso");
-                }
-
-                int ejemplares = Integer.parseInt(ejemplaresString);
-
-                if (!LibroUtils.validarEjemplares(ejemplares)) {
-                    throw new IllegalArgumentException("El número de ejemplares debe ser mayor que 0");
-                }
-
-                LocalDate fechaEdicion = LocalDate.parse(fechaEdicionString);
-
-                // Recoger autores y géneros
-                List<Autor> autores = LibroUtils.obtenerAutores(autoresArray);
-                List<Genero> generos = LibroUtils.obtenerGeneros(generosArray);
-
-                String nombreArchivo = portada.getSubmittedFileName();
-                if (!nombreArchivo.trim().isEmpty()) {
-                    //si el nombre del archivo no esta vacio, guardamos el archivo nuevo
-                    String ruta = getServletContext().getRealPath("/img");
-                    LibroUtils.guardarArchivo(portada, ruta, nombreArchivo);
-                    //eliminamos el archivo que hubiese en ese momento
-                    LibroUtils.eliminarArchivo(ruta, request.getParameter("portadaActual"));
-                } else {
-                    //si el nombre del archivo esta vacio, usamos el nombre del archivo actual
-                    nombreArchivo = request.getParameter("portadaActual");
-                }
-                // Guardar el libro en la base de datos
-                //Libro libroEditado = new Libro(id, isbn, titulo, fechaEdicion, nombreArchivo, ejemplares, autores, generos);
-                //seteamos los nuevos valores al libro
-                libroActual.setIsbn(isbn);
-                libroActual.setTitulo(titulo);
-                libroActual.setFechaEdicion(fechaEdicion);
-                libroActual.setImagenPortada(nombreArchivo);
-                libroActual.setNumeroEjemplares(ejemplares);
-                libroActual.setAutores(autores);
-                libroActual.setGeneros(generos);
-                //actualizamos el libroActual
-                ServicioLibro.actualizarLibro(libroActual);
-
-                // Redirigir a la página de gestión de libros
-                response.sendRedirect("GestionLibros");
-
-            } catch (IllegalArgumentException e) {
-                request.setAttribute("error", e.getMessage());
-                LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
-                request.setAttribute("libroEditar",
-                        new Libro(
-                                id,
-                                isbn,
-                                titulo,
-                                LocalDate.parse(fechaEdicionString),
-                                request.getParameter("portadaActual"),
-                                Integer.parseInt(ejemplaresString),
-                                LibroUtils.obtenerAutores(autoresArray),
-                                LibroUtils.obtenerGeneros(generosArray))
-                );
-                request.getRequestDispatcher(vista).forward(request, response);
             }
         } else {
             request.setAttribute("error", "Faltan campos por rellenar");
             LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
-            request.getRequestDispatcher(vista).forward(request, response);
         }
+        request.getRequestDispatcher(vista).forward(request, response);
     }
 
 }
