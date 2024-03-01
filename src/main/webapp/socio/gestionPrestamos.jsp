@@ -9,7 +9,7 @@
     <jsp:include page="../components/sweetalert.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
+<c:set var="DIAS_MAXIMOS" value="10"/>
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">
@@ -36,7 +36,9 @@
                     <td>${prestamo.libro.isbn}</td>
                     <td>${prestamo.libro.titulo}</td>
                     <td>${prestamo.fechaPrestamo}</td>
-                    <td>${prestamo.diasPrestamo}</td>
+                    <td <c:if test="${prestamo.diasPrestamo > DIAS_MAXIMOS}"> class="text-danger" </c:if> >
+                            ${prestamo.diasPrestamo}
+                    </td>
                     <td>${prestamo.fechaDevolucion}</td>
                     <td>
                         <c:choose>
@@ -44,7 +46,14 @@
                                 <a href="DevolucionPrestamo?id=${prestamo.id}" class="btn btn-primary devolver">Devolver</a>
                             </c:when>
                             <c:otherwise>
-                                <p class="text-success">Devuelto</p>
+                                <c:choose>
+                                    <c:when test="${prestamo.diasPrestamo > DIAS_MAXIMOS}">
+                                        <p class="text-danger">Devuelto (retraso)</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="text-success">Devuelto</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </td>

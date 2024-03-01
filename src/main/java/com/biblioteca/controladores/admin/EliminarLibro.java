@@ -1,6 +1,7 @@
 package com.biblioteca.controladores.admin;
 
 import com.biblioteca.model.entidades.Libro;
+import com.biblioteca.model.entidades.Prestamo;
 import com.biblioteca.servicios.ServicioLibro;
 import com.biblioteca.util.LibroUtils;
 import jakarta.servlet.ServletException;
@@ -28,7 +29,29 @@ public class EliminarLibro extends HttpServlet {
             //libro_autor y libro_genero que tengan el id del libro, siempre y cuando no tenga prestamos activos
             Libro libro = ServicioLibro.buscarLibroPorId(libroId);
             if (libro != null) {
-                if (libro.getPrestamos().isEmpty()) {
+                for(Prestamo p : libro.getPrestamos()) {
+                    //Si alguna fecha es null, no se puede eliminar porque tiene prestamos activos
+                    if(p.getFechaDevolucion() == null) {
+                        request.setAttribute("error", "No se puede eliminar el libro porque tiene préstamos activos");
+                        request.getRequestDispatcher("GestionLibros").forward(request, response);
+                        return;
+                    }
+                }
+
+                if(!libro.getPrestamos().isEmpty()) {
+                    request.setAttribute("error", "No se puede eliminar el libro porque está en el historial de" +
+                            " prestamos de un uusario");
+                    request.getRequestDispatcher("GestionLibros").forward(request, response);
+                    return;
+                }
+
+                //si llegamos aqui, podemos eliminar el libro
+                String imagenPortada = libro.getImagenPortada();
+                ServicioLibro.eliminarLibro(libroId);
+                LibroUtils.eliminarArchivo(getServletContext().getRealPath("/img"), imagenPortada);
+                response.sendRedirect("GestionLibros");
+
+                /*if (libro.getPrestamos().isEmpty()) {
                     String imagenPortada = libro.getImagenPortada();
                     ServicioLibro.eliminarLibro(libroId);
                     LibroUtils.eliminarArchivo(getServletContext().getRealPath("/img"), imagenPortada);
@@ -36,9 +59,9 @@ public class EliminarLibro extends HttpServlet {
                     return;
                 } else {
                     request.setAttribute("error", "No se puede eliminar el libro porque tiene préstamos activos");
-                }
+                }*/
             }
         }
-        request.getRequestDispatcher("GestionLibros").forward(request, response);
+        //request.getRequestDispatcher("GestionLibros").forward(request, response);
     }
 }

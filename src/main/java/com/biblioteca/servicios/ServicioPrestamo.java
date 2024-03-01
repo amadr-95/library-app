@@ -22,4 +22,8 @@ public class ServicioPrestamo {
     public static List<Prestamo> listarPrestamosPorUsuario(long id) {
         return prestamoDao.listarPrestamosPorUsuario(id);
     }
+
+    public static Prestamo obtenerPrestamoPorId(long id){
+        return prestamoDao.obtenerPrestamoPorId(id);
+    }
 }

@@ -2,6 +2,7 @@ package com.biblioteca.controladores.admin;
 
 import com.biblioteca.model.entidades.Libro;
 import com.biblioteca.servicios.ServicioLibro;
+import com.biblioteca.servicios.ServicioPrestamo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

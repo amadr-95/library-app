@@ -1,6 +1,9 @@
 package com.biblioteca.controladores.socio;
 
+import com.biblioteca.model.entidades.Libro;
+import com.biblioteca.model.entidades.Prestamo;
 import com.biblioteca.model.entidades.Usuario;
+import com.biblioteca.servicios.ServicioLibro;
 import com.biblioteca.servicios.ServicioPrestamo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,7 +27,15 @@ public class DevolucionPrestamo extends HttpServlet {
         String id = request.getParameter("id");
         if(id != null && !id.isEmpty()){
             long prestamoId = Long.parseLong(id);
+            Prestamo prestamo = ServicioPrestamo.obtenerPrestamoPorId(prestamoId);
+
             ServicioPrestamo.establecerFechaDevolucion(prestamoId, LocalDate.now());
+
+            //incrementar la cantidad de libros disponibles
+            Libro libro = prestamo.getLibro();
+            libro.setNumeroEjemplares(libro.getNumeroEjemplares() + 1);
+            ServicioLibro.actualizarLibro(libro);
+
             response.sendRedirect("GestionPrestamos");
             return;
         }

@@ -45,4 +45,25 @@ public class PrestamoDao {
         entityManager.close();
         return prestamos;
     }
+
+    public List<Prestamo> listarPrestamosCompletadosPorUsuario(long id) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT p FROM Prestamo p WHERE p.usuario.id = :id AND p.fechaDevolucion IS NOT NULL";
+        List<Prestamo> prestamos = entityManager.createQuery(query, Prestamo.class)
+                .setParameter("id", id)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return prestamos;
+    }
+
+    public Prestamo obtenerPrestamoPorId(long id){
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        Prestamo prestamo = entityManager.find(Prestamo.class, id);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return prestamo;
+    }
 }

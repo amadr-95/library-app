@@ -51,4 +51,12 @@ public class AutorDao {
         entityManager.close();
         return autor;
     }
+
+    public void eliminarAutor(Autor autor) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.contains(autor) ? autor : entityManager.merge(autor));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

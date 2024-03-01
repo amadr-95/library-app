@@ -89,16 +89,16 @@ public class CrearLibro extends HttpServlet {
 
                 // Redirigir a la página de gestión de libros
                 response.sendRedirect("GestionLibros");
+                return;
 
             } catch (IllegalArgumentException e) {
                 request.setAttribute("error", e.getMessage());
                 LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
-                request.getRequestDispatcher(vista).forward(request, response);
             }
         } else {
             request.setAttribute("error", "Faltan campos por rellenar");
             LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
-            request.getRequestDispatcher(vista).forward(request, response);
         }
+        request.getRequestDispatcher(vista).forward(request, response);
     }
 }

@@ -29,4 +29,8 @@ public class ServicioAutor {
             return null;
         }
     }
+
+    public static void eliminarAutor(Autor autor) {
+        autorDao.eliminarAutor(autor);
+    }
 }

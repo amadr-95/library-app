@@ -29,4 +29,8 @@ public class ServicioGenero {
     public static void insertarGenero(Genero genero) {
         generoDao.insertarGenero(genero);
     }
+
+    public static void eliminarGenero(Genero genero) {
+        generoDao.eliminarGenero(genero);
+    }
 }

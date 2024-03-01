@@ -69,7 +69,14 @@
 
                     <td>${libro.numeroEjemplares}</td>
                     <td>
-                        <c:out value="${libro.prestamos.size()}"/>
+                        <c:set var="prestamosActivos" value="0"/>
+                        <c:forEach items="${libro.prestamos}" var="prestamo">
+                            <c:if test="${prestamo.fechaDevolucion == null}">
+<%--                                contar los prestamos activos --%>
+                                <c:set var="prestamosActivos" value="${prestamosActivos + 1}"/>
+                            </c:if>
+                        </c:forEach>
+                        <c:out value="${prestamosActivos}"/>
                     </td>
                     <td>
                         <a href="EditarLibro?id=${libro.id}" class="btn btn-primary">Editar</a>

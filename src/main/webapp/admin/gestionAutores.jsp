@@ -47,6 +47,28 @@
     </div>
 </div>
 
+<!-- Modal editar autor -->
+<div class="modal fade" id="modalAutorEditar" tabindex="-1" aria-labelledby="modalAutorLabelEditar" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAutorLabelEditar"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <input type="hidden" id="idEditar" name="id">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del autor</label>
+                        <input type="text" class="form-control" id="nombreEditar" name="nombre" value="${autorEditar.nombre}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">
@@ -93,7 +115,7 @@
                         </c:choose>
                     </td>
                     <td>
-                        <a href="EditarAutor?id=${autor.id}" class="btn btn-primary">Editar</a>
+                        <a href="EditarAutor?id=${autor.id}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAutorEditar">Editar</a>
                         <a href="EliminarAutor?id=${autor.id}"
                            class="btn btn-danger eliminar-autor">Eliminar</a>
                     </td>

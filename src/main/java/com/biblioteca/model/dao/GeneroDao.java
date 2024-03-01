@@ -51,4 +51,12 @@ public class GeneroDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public void eliminarGenero(Genero genero) {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.merge(genero));
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }
