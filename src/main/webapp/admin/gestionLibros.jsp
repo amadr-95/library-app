@@ -28,6 +28,7 @@
         <table class="table table-striped text-center">
             <tr class="align-middle">
                 <th>ID</th>
+                <th>ISBN</th>
                 <th>Titulo</th>
                 <th>Autores</th>
                 <th>Generos</th>
@@ -39,6 +40,7 @@
             <c:forEach items="${listaLibros}" var="libro">
                 <tr class="align-middle">
                     <td>${libro.id}</td>
+                    <td>${libro.isbn}</td>
                     <td>${libro.titulo}</td>
                     <td>
                         <ul class="list-group">

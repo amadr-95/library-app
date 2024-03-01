@@ -33,8 +33,8 @@ public class MenuPrincipal extends HttpServlet {
                 request.setAttribute("empleado", true);
                 break;
             case SOCIO:
-                request.setAttribute("socio", true);
-                break;
+                response.sendRedirect("socio/GestionPrestamos");
+                return;
         }
         request.getRequestDispatcher(vista).forward(request, response);
     }

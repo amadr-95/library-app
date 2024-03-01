@@ -59,10 +59,10 @@
                 <c:when test="${empleado}">
                     <div class="col-md-4 text-center">
                         <div class="card card-body">
-                            <h5 class="card-title">Tarjeta 1</h5>
-                            <p class="card-text">Texto 1</p>
+                            <h5 class="card-title">Registrar Préstamo</h5>
+                            <p class="card-text">Asigna un préstamo a un socio</p>
                                 <%--Este enlace es al servlet--%>
-                            <a href="empleado/" class="btn btn-primary">Acceder</a>
+                            <a href="empleado/RealizarPrestamo" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
                     <div class="col-md-4 text-center">
@@ -73,22 +73,6 @@
                             <a href="empleado/" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
-                    <%--<ul>
-                        <li><a href="#">Registrar préstamo</a></li>
-                        <li><a href="#">Registrar devolución</a></li>
-                    </ul>--%>
-                </c:when>
-                <c:when test="${socio}">
-                    <!-- redirigir al servlet GestionPrestamos -->
-                    <%--<c:redirect url="socio/GestionPrestamos"/>--%>
-                    <div class="container justify-content-center col-4 text-center">
-                        <div class="card card-body">
-                            <h5 class="card-title text-center">Gestionar préstamos</h5>
-                            <p class="card-text">Gestiona tus préstamos y devoluciones</p>
-                            <a href="socio/GestionPrestamos" class="btn btn-primary">Acceder</a>
-                        </div>
-                    </div>
-
                 </c:when>
                 <c:otherwise>
                     <!-- En caso de que el rol no coincida con ninguno de los anteriores -->

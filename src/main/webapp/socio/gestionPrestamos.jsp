@@ -22,6 +22,7 @@
     <section class="container">
         <table class="table table-striped text-center">
             <tr>
+                <td>ID del préstamo</td>
                 <td>ISBN del libro</td>
                 <td>Titulo del libro</td>
                 <td>Fecha de préstamo</td>
@@ -32,6 +33,7 @@
             <c:forEach items="${prestamos}" var="prestamo">
                 <tr>
                     <td>${prestamo.id}</td>
+                    <td>${prestamo.libro.isbn}</td>
                     <td>${prestamo.libro.titulo}</td>
                     <td>${prestamo.fechaPrestamo}</td>
                     <td>${prestamo.diasPrestamo}</td>
