@@ -28,7 +28,8 @@
             </div>
             <div class="modal-footer">
                 <form method="post">
-                    <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" value="Notificar"/>
+                    <input type="submit" class="btn btn-danger" data-bs-dismiss="modal" id="notificar"
+                           value="Notificar"/>
                 </form>
             </div>
         </div>
@@ -49,8 +50,17 @@
     <section class="container">
         <div class="row">
 
+            <div>
+                <c:if test="${not empty resultado}">
+                    <div class="alert alert-danger" role="alert">
+                            ${resultado}
+                    </div>
+                </c:if>
+            </div>
+
             <div class="col-3 mb-3">
-                <input type="text" id="filtro" class="form-control" placeholder="Busca por libro o socio" onkeyup="filtrar()"/>
+                <input type="text" id="filtro" class="form-control" placeholder="Busca por libro o socio"
+                       onkeyup="filtrar()"/>
             </div>
 
             <div class="col-3 mb-3">
@@ -78,26 +88,6 @@
 
 <jsp:include page="../components/footer.jsp"/>
 
-<%--<script>
-    document.querySelectorAll('.devolver').forEach(libro => {
-        libro.addEventListener('click', function (e) {
-            e.preventDefault();
-            Swal.fire({
-                title: "¿Estás seguro de devolver el libro?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, devolver'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = e.target.href;
-                }
-            });
-        });
-    });
-</script>--%>
-
 <script>
     //filtro
     function filtrar() {
@@ -105,11 +95,28 @@
         $.ajax({
             method: "GET",
             url: "FiltrarPrestamos",
-            data: { filtro: filtro }
-        }).done(function( listado ) {
+            data: {filtro: filtro}
+        }).done(function (listado) {
             $("#resultados").html(listado);
         });
     }
+
+    //confirmar mandar mails
+    /*document.getElementById('notificar').addEventListener('click', function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "¿Estás seguro de que desea mandar los emails?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, enviar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = e.target.href;
+            }
+        });
+    });*/
 
     // Mostrar los usuarios sancionados en una ventana modal
     document.querySelectorAll('.ver-sancionados').forEach(usuario => {
