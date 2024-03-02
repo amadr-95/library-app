@@ -4,7 +4,6 @@
 
 <fmt:setLocale value="en_US"/>
 <fmt:bundle basename="myProp">
-    <fmt:formatDate value=""
     <!DOCTYPE html>
     <html>
     <head>
