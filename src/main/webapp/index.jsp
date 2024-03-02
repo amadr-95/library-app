@@ -28,7 +28,7 @@
                 <th>Fecha de Edición</th>
                 <th>Imagen de Portada</th>
                 <th>Número de Ejemplares</th>
-                <th>Generos</th>
+                <th>Géneros</th>
             </tr>
             <c:forEach items="${libros}" var="libro">
                 <tr class="align-middle">
