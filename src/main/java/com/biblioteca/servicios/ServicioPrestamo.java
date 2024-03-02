@@ -38,4 +38,8 @@ public class ServicioPrestamo {
     public static List<Prestamo> listarPrestamos(){
         return prestamoDao.listarPrestamos();
     }
+
+    public static List<Prestamo> filtrarPrestamos(String filtro){
+        return prestamoDao.filtrarPrestamos(filtro);
+    }
 }

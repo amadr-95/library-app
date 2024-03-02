@@ -72,4 +72,16 @@ public class PrestamoDao {
         entityManager.close();
         return prestamos;
     }
+
+    public List<Prestamo> filtrarPrestamos(String filtro){
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT p FROM Prestamo p WHERE p.libro.titulo LIKE :filtro OR p.usuario.nombre LIKE :filtro";
+        List<Prestamo> prestamos = entityManager.createQuery(query, Prestamo.class)
+                .setParameter("filtro", "%" + filtro + "%")
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return prestamos;
+    }
 }

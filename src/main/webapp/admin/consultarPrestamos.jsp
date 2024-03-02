@@ -7,6 +7,8 @@
     <title>Gestión de préstamos</title>
     <jsp:include page="../components/bootstrap.jsp"/>
     <jsp:include page="../components/sweetalert.jsp"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -48,7 +50,7 @@
         <div class="row">
 
             <div class="col-3 mb-3">
-                <input type="text" id="filtro" class="form-control" placeholder="Busca por libro o socio"/>
+                <input type="text" id="filtro" class="form-control" placeholder="Busca por libro o socio" onkeyup="filtrar()"/>
             </div>
 
             <div class="col-3 mb-3">
@@ -65,30 +67,9 @@
             </div>
         </div>
         <div id="resultados">
-            <table class="table table-striped text-center">
-                <tr>
-                    <td>ID del préstamo</td>
-                    <td>Titulo del libro</td>
-                    <td>Fecha de préstamo</td>
-                    <td>Dias transcurridos</td>
-                    <td>Fecha de devolución</td>
-                    <td>Nombre del usuario</td>
-                    <td>Email del usuario</td>
-                </tr>
-                <c:forEach items="${prestamos}" var="prestamo">
-                    <tr>
-                        <td>${prestamo.id}</td>
-                        <td>${prestamo.libro.titulo}</td>
-                        <td>${prestamo.fechaPrestamo}</td>
-                        <td <c:if test="${prestamo.diasPrestamo > DIAS_MAXIMOS}"> class="text-danger" </c:if> >
-                                ${prestamo.diasPrestamo}
-                        </td>
-                        <td>${prestamo.fechaDevolucion}</td>
-                        <td>${prestamo.usuario.nombre}</td>
-                        <td>${prestamo.usuario.email}</td>
-                    </tr>
-                </c:forEach>
-            </table>
+            <c:import url="FiltrarPrestamos">
+                <c:param name="filtro" value=""/>
+            </c:import>
         </div>
         </c:otherwise>
         </c:choose>
@@ -119,16 +100,16 @@
 
 <script>
     //filtro
-    document.getElementById('filtro').addEventListener('keyup', (e) => {
-        const filtro = e.target.value.trim();
-        //peticion fetch a la url del controlador Inicio con el parametro filtro
-        fetch('Inicio?filtro=' + encodeURIComponent(filtro), {method: 'GET'})
-            .then(response => response.text())
-            .then(result => {
-                const resultado = document.getElementById('resultadoLibros');
-                resultado.innerHTML = result;
-            })
-    });
+    function filtrar() {
+        const filtro = document.getElementById('filtro').value;
+        $.ajax({
+            method: "GET",
+            url: "FiltrarPrestamos",
+            data: { filtro: filtro }
+        }).done(function( listado ) {
+            $("#resultados").html(listado);
+        });
+    }
 
     // Mostrar los usuarios sancionados en una ventana modal
     document.querySelectorAll('.ver-sancionados').forEach(usuario => {
