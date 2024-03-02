@@ -14,13 +14,15 @@
     <h1 class="text-center my-5">Información del préstamo</h1>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body w-auto">
-                        <img src="../img/${libroPrestado.imagenPortada}" alt="${libroPrestado.titulo}" width="100">
+            <c:if test="${not empty libroPrestado.imagenPortada}">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body w-auto">
+                            <img src="../img/${libroPrestado.imagenPortada}" alt="${libroPrestado.titulo}" width="100">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </c:if>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">Detalles del préstamo</div>

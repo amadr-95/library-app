@@ -34,4 +34,8 @@ public class ServicioPrestamo {
     public static void insertarPrestamo(Prestamo prestamo){
         prestamoDao.insertarPrestamo(prestamo);
     }
+
+    public static List<Prestamo> listarPrestamos(){
+        return prestamoDao.listarPrestamos();
+    }
 }

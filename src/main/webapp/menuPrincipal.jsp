@@ -60,7 +60,7 @@
                             <h5 class="card-title">Gestionar Préstamos</h5>
                             <p class="card-text">Gestiona los préstamos de los usuarios</p>
                                 <%--Este enlace es al servlet--%>
-                            <a href="admin/GestionPrestamos" class="btn btn-primary">Acceder</a>
+                            <a href="admin/ConsultarPrestamos" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
                 </c:when>

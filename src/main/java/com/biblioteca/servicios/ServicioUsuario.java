@@ -80,4 +80,24 @@ public class ServicioUsuario {
         }
         return sociosNoSancionados;
     }
+
+    public static List<Usuario> listarSociosSancionados() {
+        List<Usuario> socios = usuarioDao.listarUsuarios(Rol.SOCIO);
+        List<Usuario> sociosSancionados = new ArrayList<>();
+
+        for (Usuario socio : socios) {
+            boolean sancionado = false;
+            List<Prestamo> prestamos = socio.getPrestamos();
+
+            for (Prestamo prestamo : prestamos) {
+                if (!PrestamoUtil.prestamoVigente(prestamo.getId())) {
+                    sancionado = true;
+                    break;
+                }
+            }
+            if(sancionado)
+                sociosSancionados.add(socio);
+        }
+        return sociosSancionados;
+    }
 }

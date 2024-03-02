@@ -21,16 +21,7 @@ public class Inicio extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String vista = "/index.jsp";
-        //recogemos el parametro de la busqueda
-        String filtro = request.getParameter("filtro");
-        List<Libro> libros;
-        if (filtro != null && !filtro.trim().isEmpty()) {
-            //buscamos los libros que coincidan con el filtro
-            libros = ServicioLibro.listarLibros(filtro);
-        } else {
-            //listamos todos los libros
-            libros = ServicioLibro.listarLibros();
-        }
+        List<Libro> libros = ServicioLibro.listarLibros();
         request.setAttribute("libros", libros);
         getServletContext().getRequestDispatcher(vista).forward(request, response);
     }
