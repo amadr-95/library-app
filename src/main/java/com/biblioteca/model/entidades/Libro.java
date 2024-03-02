@@ -43,7 +43,6 @@ public class Libro {
     private int numeroEjemplares;
 
     //un libro puede tener varios autores
-    @JsonbTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "libro_autor", //nombre de la tabla intermedia
@@ -53,7 +52,6 @@ public class Libro {
     private List<Autor> autores = new ArrayList<>();
 
     //un libro puede pertenecer a varios generos
-    @JsonbTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "libro_genero", //nombre de la tabla intermedia
@@ -63,7 +61,6 @@ public class Libro {
     private List<Genero> generos = new ArrayList<>();
 
     //un libro puede tener varios prestamos
-    @JsonbTransient
     @OneToMany(mappedBy = "libro")
     private List<Prestamo> prestamos = new ArrayList<>();
 

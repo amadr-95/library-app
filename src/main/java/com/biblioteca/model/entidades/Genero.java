@@ -1,5 +1,6 @@
 package com.biblioteca.model.entidades;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Genero {
     private String genero;
 
     @ManyToMany(mappedBy = "generos")
+    @JsonbTransient
     private List<Libro> libros = new ArrayList<>();
 
     public Genero() {

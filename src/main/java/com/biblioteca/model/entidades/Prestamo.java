@@ -1,5 +1,6 @@
 package com.biblioteca.model.entidades;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,10 +28,12 @@ public class Prestamo {
     private LocalDate fechaDevolucion;
 
     @ManyToOne
+    @JsonbTransient
     @JoinColumn(name = "libro_id", nullable = false)
     private Libro libro;
 
     @ManyToOne
+    @JsonbTransient
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 

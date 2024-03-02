@@ -1,5 +1,6 @@
 package com.biblioteca.model.entidades;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Autor {
     private String nombre;
 
     @ManyToMany(mappedBy = "autores")
+    @JsonbTransient
     private List<Libro> libros = new ArrayList<>();
 
     public Autor() {
