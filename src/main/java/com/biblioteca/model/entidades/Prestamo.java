@@ -8,10 +8,6 @@ import java.time.Period;
 @Entity
 @Table(name = "prestamos")
 public class Prestamo {
-
-   /* @Transient //no se mappea a la base de datos
-    private final int DIAS_MAXIMOS_PRESTAMO = 5;*/
-
     @Id
     @SequenceGenerator(
             name = "prestamo_sequence",

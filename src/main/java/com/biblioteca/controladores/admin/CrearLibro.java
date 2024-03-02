@@ -4,7 +4,7 @@ import com.biblioteca.model.entidades.Autor;
 import com.biblioteca.model.entidades.Genero;
 import com.biblioteca.model.entidades.Libro;
 import com.biblioteca.servicios.ServicioLibro;
-import com.biblioteca.util.LibroUtils;
+import com.biblioteca.util.LibroUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,7 +28,7 @@ public class CrearLibro extends HttpServlet {
             throws ServletException, IOException {
         String vista = "/admin/crearLibro.jsp";
         //enviar los autores y los generos a la vista
-        LibroUtils.listarAutoresYGeneros(request);
+        LibroUtil.listarAutoresYGeneros(request);
         request.getRequestDispatcher(vista).forward(request, response);
     }
 
@@ -53,10 +53,10 @@ public class CrearLibro extends HttpServlet {
         String[] generosArray = request.getParameterValues("generos");
 
         //comprobaciones
-        if (LibroUtils.camposRequeridosNoVacios(isbn, titulo, ejemplaresString, fechaEdicionString, autoresArray, generosArray)) {
+        if (LibroUtil.camposRequeridosNoVacios(isbn, titulo, ejemplaresString, fechaEdicionString, autoresArray, generosArray)) {
             try {
                 // Validar el ISBN
-                if (!LibroUtils.validarIsbn(isbn)) {
+                if (!LibroUtil.validarIsbn(isbn)) {
                     throw new IllegalArgumentException("El ISBN debe tener 13 caracteres numéricos y sin espacios");
                 }
 
@@ -69,18 +69,18 @@ public class CrearLibro extends HttpServlet {
 
                 int ejemplares = Integer.parseInt(ejemplaresString);
 
-                if (!LibroUtils.validarEjemplares(ejemplares)) {
+                if (!LibroUtil.validarEjemplares(ejemplares)) {
                     throw new IllegalArgumentException("El número de ejemplares debe ser mayor que 0");
                 }
 
                 // Recoger autores y géneros
-                List<Autor> autores = LibroUtils.obtenerAutores(autoresArray);
-                List<Genero> generos = LibroUtils.obtenerGeneros(generosArray);
+                List<Autor> autores = LibroUtil.obtenerAutores(autoresArray);
+                List<Genero> generos = LibroUtil.obtenerGeneros(generosArray);
 
                 //guardar el archivo de la portada
                 if (!nombreArchivo.isEmpty()) {
                     String ruta = getServletContext().getRealPath("/img");
-                    LibroUtils.guardarArchivo(portada, ruta, nombreArchivo);
+                    LibroUtil.guardarArchivo(portada, ruta, nombreArchivo);
                 }
 
                 // Guardar el libro en la base de datos
@@ -93,11 +93,11 @@ public class CrearLibro extends HttpServlet {
 
             } catch (IllegalArgumentException e) {
                 request.setAttribute("error", e.getMessage());
-                LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
+                LibroUtil.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
             }
         } else {
             request.setAttribute("error", "Faltan campos por rellenar");
-            LibroUtils.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
+            LibroUtil.listarAutoresYGeneros(request); // Enviar autores y géneros a la vista
         }
         request.getRequestDispatcher(vista).forward(request, response);
     }

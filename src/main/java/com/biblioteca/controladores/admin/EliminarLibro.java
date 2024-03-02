@@ -3,7 +3,7 @@ package com.biblioteca.controladores.admin;
 import com.biblioteca.model.entidades.Libro;
 import com.biblioteca.model.entidades.Prestamo;
 import com.biblioteca.servicios.ServicioLibro;
-import com.biblioteca.util.LibroUtils;
+import com.biblioteca.util.LibroUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -40,7 +40,7 @@ public class EliminarLibro extends HttpServlet {
 
                 if(!libro.getPrestamos().isEmpty()) {
                     request.setAttribute("error", "No se puede eliminar el libro porque está en el historial de" +
-                            " prestamos de un uusario");
+                            " prestamos de un usuario");
                     request.getRequestDispatcher("GestionLibros").forward(request, response);
                     return;
                 }
@@ -48,7 +48,7 @@ public class EliminarLibro extends HttpServlet {
                 //si llegamos aqui, podemos eliminar el libro
                 String imagenPortada = libro.getImagenPortada();
                 ServicioLibro.eliminarLibro(libroId);
-                LibroUtils.eliminarArchivo(getServletContext().getRealPath("/img"), imagenPortada);
+                LibroUtil.eliminarArchivo(getServletContext().getRealPath("/img"), imagenPortada);
                 response.sendRedirect("GestionLibros");
 
                 /*if (libro.getPrestamos().isEmpty()) {

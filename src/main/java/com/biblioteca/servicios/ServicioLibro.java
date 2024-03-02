@@ -44,4 +44,8 @@ public class ServicioLibro {
     public static void actualizarLibro(Libro libro) {
         libroDao.actualizarLibro(libro);
     }
+
+    public static List<Libro> listarLibrosDisponiblesParaPrestar() {
+        return libroDao.listarLibrosDisponiblesParaPrestar();
+    }
 }

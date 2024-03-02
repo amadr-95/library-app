@@ -9,7 +9,7 @@
     <jsp:include page="../components/sweetalert.jsp"/>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<c:set var="DIAS_MAXIMOS" value="10"/>
+<c:set var="DIAS_MAXIMOS" value="15"/>
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">

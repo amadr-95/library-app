@@ -84,4 +84,15 @@ public class LibroDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public List<Libro> listarLibrosDisponiblesParaPrestar() {
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        String query = "SELECT l FROM Libro l WHERE l.numeroEjemplares > 0";
+        List<Libro> libros = entityManager.createQuery(query, Libro.class)
+                .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return libros;
+    }
 }

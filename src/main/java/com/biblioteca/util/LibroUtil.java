@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibroUtils {
+public class LibroUtil {
     private static final int TAM_BUFFER = 4 * 1024;
     private static final String isbnRegex = "^\\d{13}$";
 

@@ -4,8 +4,10 @@ import com.biblioteca.model.dao.UsuarioDao;
 import com.biblioteca.model.entidades.Prestamo;
 import com.biblioteca.model.entidades.Rol;
 import com.biblioteca.model.entidades.Usuario;
+import com.biblioteca.util.PrestamoUtil;
 import jakarta.persistence.NoResultException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioUsuario {
@@ -56,5 +58,26 @@ public class ServicioUsuario {
 
     public static void actualizarUsuario(Usuario usuario) {
         usuarioDao.actualizarUsuario(usuario);
+    }
+
+    public static List<Usuario> listarSociosNoSancionados() {
+        List<Usuario> socios = usuarioDao.listarUsuarios(Rol.SOCIO);
+        List<Usuario> sociosNoSancionados = new ArrayList<>();
+
+        for (Usuario socio : socios) {
+            boolean sancionado = false;
+            List<Prestamo> prestamos = socio.getPrestamos();
+
+            for (Prestamo prestamo : prestamos) {
+                if (!PrestamoUtil.prestamoVigente(prestamo.getId())) {
+                    sancionado = true;
+                    break;
+                }
+            }
+
+            if(!sancionado)
+                sociosNoSancionados.add(socio);
+        }
+        return sociosNoSancionados;
     }
 }
