@@ -37,6 +37,13 @@ public class Prestamo {
     public Prestamo() {
     }
 
+    public Prestamo(LocalDate fechaPrestamo, Libro libro, Usuario usuario) {
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = null;
+        this.libro = libro;
+        this.usuario = usuario;
+    }
+
     public Long getId() {
         return id;
     }
@@ -81,5 +88,9 @@ public class Prestamo {
         return fechaDevolucion == null ?
                 Period.between(fechaPrestamo, LocalDate.now()).getDays() : //dinamico
                 Period.between(fechaPrestamo, fechaDevolucion).getDays(); //fijo
+    }
+
+    public LocalDate getFechaDevolucionMaxima() {
+        return fechaPrestamo.plusDays(15);
     }
 }

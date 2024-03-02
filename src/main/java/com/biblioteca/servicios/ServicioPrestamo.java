@@ -23,7 +23,15 @@ public class ServicioPrestamo {
         return prestamoDao.listarPrestamosPorUsuario(id);
     }
 
+    public static List<Prestamo> listarPrestamosPorLibro(long id) {
+        return prestamoDao.listarPrestamosPorLibro(id);
+    }
+
     public static Prestamo obtenerPrestamoPorId(long id){
         return prestamoDao.obtenerPrestamoPorId(id);
+    }
+
+    public static void insertarPrestamo(Prestamo prestamo){
+        prestamoDao.insertarPrestamo(prestamo);
     }
 }
