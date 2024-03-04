@@ -11,22 +11,22 @@
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">
-    <h1 class="text-center my-5">Información del préstamo</h1>
+    <h1 class="card-title text-center my-5">Información del préstamo</h1>
     <div class="container">
-        <div class="row justify-content-center">
-            <c:if test="${not empty libroPrestado.imagenPortada}">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body w-auto">
-                            <img src="../img/${libroPrestado.imagenPortada}" alt="${libroPrestado.titulo}" width="100">
-                        </div>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row gap-2">
+
+                    <%-- Imagen --%>
+                    <div class="col-md-5">
+                        <c:if test="${not empty libroPrestado.imagenPortada}">
+                            <img class="card-img-top img-thumbnail" src="../img/${libroPrestado.imagenPortada}"
+                                 alt="${libroPrestado.titulo}" width="50" height="auto">
+                        </c:if>
                     </div>
-                </div>
-            </c:if>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">Detalles del préstamo</div>
-                    <div class="card-body">
+
+                    <%-- Info --%>
+                    <div class="col-md-6 my-5">
                         <h5>Detalles del socio</h5>
                         <ul class="list-group">
                             <li class="list-group-item">Nombre: ${socio.nombre}</li>
@@ -36,6 +36,7 @@
                             <li class="list-group-item">Email: ${socio.email}</li>
                             <li class="list-group-item">Préstamos totales: ${prestamosSocio.size()}</li>
                         </ul>
+
                         <h5 class="mt-4">Detalles del libro</h5>
                         <ul class="list-group">
                             <li class="list-group-item">ISBN: ${libroPrestado.isbn}</li>
@@ -58,10 +59,13 @@
                         <h4 class="mt-4">Fecha de devolución máxima: ${prestamo.fechaDevolucionMaxima}</h4>
                     </div>
                 </div>
+                <div class="text-center">
+                    <a href="RealizarPrestamo" class="btn btn-primary mt-3">Volver</a>
+                </div>
             </div>
         </div>
-        <a href="RealizarPrestamo" class="btn btn-primary mt-3">Volver</a>
     </div>
+
 </main>
 
 <jsp:include page="../components/footer.jsp"/>
