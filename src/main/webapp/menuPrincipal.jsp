@@ -28,7 +28,7 @@
             <c:choose>
                 <c:when test="${admin}">
                     <!-- Si el rol es ADMINISTRADOR, muestra opciones de administrador -->
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-6 text-center">
                         <div class="card card-body">
                             <h5 class="card-title">Administrar empleados</h5>
                             <p class="card-text">Crea, edita y elimina empleados del sistema</p>
@@ -36,7 +36,7 @@
                             <a href="admin/GestionEmpleados" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-6 text-center">
                         <div class="card card-body">
                             <h5 class="card-title">Administrar libros</h5>
                             <p class="card-text">Crea, edita y elimina libros del sistema</p>
@@ -44,7 +44,7 @@
                             <a href="admin/GestionLibros" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="mt-4 col-md-6 text-center">
                         <div class="card card-body">
                             <h5 class="card-title">Administrar Autores y Generos</h5>
                             <p class="card-text">Crea, edita y elimina autores y géneros del sistema</p>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4 col-md-4 text-center ">
+                    <div class="mt-4 col-md-6 text-center ">
                         <div class="card card-body">
                             <h5 class="card-title">Gestionar Préstamos</h5>
                             <p class="card-text">Gestiona los préstamos de los usuarios</p>
@@ -65,7 +65,7 @@
                     </div>
                 </c:when>
                 <c:when test="${empleado}">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-6 text-center">
                         <div class="card card-body">
                             <h5 class="card-title">Registrar Préstamo</h5>
                             <p class="card-text">Asigna un préstamo a un socio</p>
@@ -73,12 +73,12 @@
                             <a href="empleado/RealizarPrestamo" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-6 text-center">
                         <div class="card card-body">
                             <h5 class="card-title">Tarjeta 2</h5>
                             <p class="card-text">Texto 2</p>
                                 <%--Este enlace es al servlet--%>
-                            <a href="empleado/" class="btn btn-primary">Acceder</a>
+                            <a href="#" class="btn btn-primary">Acceder</a>
                         </div>
                     </div>
                 </c:when>
