@@ -90,7 +90,7 @@ public class ServicioUsuario {
             List<Prestamo> prestamos = socio.getPrestamos();
 
             for (Prestamo prestamo : prestamos) {
-                if (!PrestamoUtil.prestamoVigente(prestamo.getId())) {
+                if (!PrestamoUtil.prestamoVigente(prestamo.getId()) && prestamo.getFechaDevolucion() == null) {
                     sancionado = true;
                     break;
                 }

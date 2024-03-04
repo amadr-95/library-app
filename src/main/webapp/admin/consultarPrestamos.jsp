@@ -37,7 +37,6 @@
 </div>
 
 
-<c:set var="DIAS_MAXIMOS" value="15"/>
 <jsp:include page="../components/header.jsp"/>
 
 <main class="flex-grow-1">
