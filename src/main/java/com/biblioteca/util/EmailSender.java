@@ -13,8 +13,8 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    private final static String EMAIL = "sabido.carrero.amador@iescamas.es";
-    private final static String PASSWORD = "iescamas2DAW";
+    private final static String EMAIL = "email";
+    private final static String PASSWORD = "password";
     private final static String ASUNTO = "Penalización Biblioteca";
     private final static String CUERPO =
             "Tienes libros pendientes de devolver, por favor, devuélvelos lo antes posible. Gracias.";
