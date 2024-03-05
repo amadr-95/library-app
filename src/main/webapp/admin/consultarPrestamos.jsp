@@ -50,8 +50,13 @@
         <div class="row">
 
             <div>
-                <c:if test="${not empty resultado}">
+                <c:if test="${not empty error}">
                     <div class="alert alert-danger" role="alert">
+                            ${resultado}
+                    </div>
+                </c:if>
+                <c:if test="${not empty exito}">
+                    <div class="alert alert-success" role="alert">
                             ${resultado}
                     </div>
                 </c:if>

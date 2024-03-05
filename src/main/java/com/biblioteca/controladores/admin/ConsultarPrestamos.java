@@ -40,9 +40,12 @@ public class ConsultarPrestamos extends HttpServlet {
         List<Usuario> sancionados = ServicioUsuario.listarSociosSancionados();
         /*List<Usuario> pruebas = List.of(
                 new Usuario("Amador", "Sabido", "amasabcar@outlook.com", "password"),
-                new Usuario("Ismael", "", "alcala.espigares.ismael@iescamas.es", "password")
+                new Usuario("Ismael", "", "alcala.espigares.ismael@iescamas.es", "password"),
+                new Usuario("Jose Antonio", "Amieva", "amieva@iescamas.es", "password"),
+
         );*/
         EmailSender.enviarCorreos(sancionados, request);
         response.sendRedirect("ConsultarPrestamos");
+
     }
 }

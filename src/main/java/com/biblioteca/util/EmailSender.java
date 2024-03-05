@@ -56,9 +56,9 @@ public class EmailSender {
             // Enviar el mensaje de correo
             Transport.send(message);
 
-            request.setAttribute("resultado", "Emails enviados correctamente");
+            request.setAttribute("exito", "Emails enviados correctamente");
         } catch (MessagingException e) {
-            request.setAttribute("resultado", "No se pudieron enviar los emails");
+            request.setAttribute("error", "No se pudieron enviar los emails");
         }
 
     }
