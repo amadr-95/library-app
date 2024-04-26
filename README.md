@@ -1,4 +1,4 @@
-# Library App
+# Library App 📚
 
 Web application to manage a library, including inventory management (books available and number of copies of each
 book), loans and management of library staff and members.
@@ -41,7 +41,8 @@ Any change whithin the database schema can be managed by editing `persistence.xm
 </persistence-unit>
 ```
 
-[imagen]
+![db-schema](https://github.com/amadr-95/library-management/assets/122611230/7ff19620-713b-4686-9678-a74d00a6c303)
+
 
 # Roles
 
@@ -51,31 +52,44 @@ There are several roles which can make different actions:
 Admin users can perform CRUD operations over all entities
 (books, authors, genres and users)
 
-### Admin main page  
-[imagen]
+![admin](https://github.com/amadr-95/library-management/assets/122611230/d8c877a8-55b3-4cbc-9f94-5609460713a4)
 
-- Employee management
+### Employee management
+  ![employee-management](https://github.com/amadr-95/library-management/assets/122611230/7c2257ad-6842-467b-82cf-2585a581b105)
 
-  - Employee edit page
-- 
-- Books management
+#### Employee edit page
+![edit-employee](https://github.com/amadr-95/library-management/assets/122611230/6a63bc6c-592d-4b65-a9c8-f866a5338352)
 
-  - Book edit page
+### Books management
+![books-management](https://github.com/amadr-95/library-management/assets/122611230/e7265341-4e01-4d9f-819f-fa672983f86d)
 
-- Author management
+#### Book edit page
+![edit-book](https://github.com/amadr-95/library-management/assets/122611230/e31ebbf7-ace0-4040-b48d-45d18bc093ce)
 
-- Genre management
+### Author management
+![authors-management](https://github.com/amadr-95/library-management/assets/122611230/eb04cc97-044a-4dbc-b4a4-c7b36b574809)
+
+### Genre management
+![genres-management](https://github.com/amadr-95/library-management/assets/122611230/f1c5bd30-1a10-47b8-8fa3-28955cb0566d)
+
+### Loans management
+![loans-management](https://github.com/amadr-95/library-management/assets/122611230/ee456934-28db-4047-b3c6-45c25779b055)
+
 
 ## Employee
 Employees are responsible for making loans 
 They can select members and assign them a book (if they are not banned)
 The member get banned if returns the book late.
+![loan](https://github.com/amadr-95/library-management/assets/122611230/70817b22-4cab-4d3c-8b29-05dd2cf3d4e8)
 
 When a loan is made a nice card with all the information appears
+![loan-card](https://github.com/amadr-95/library-management/assets/122611230/045d5977-6227-4a49-b0bf-bde8499dd73a)
+
 
 ## Member
 Members can check in their profiles the books they have been borrows and
 returnin them back on time or not (got banned)
+![user-books](https://github.com/amadr-95/library-management/assets/122611230/dbdfae64-7bdf-497d-9c43-9d687677ac97)
 
 
 # API Rest
