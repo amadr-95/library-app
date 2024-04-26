@@ -87,7 +87,8 @@ Admin users can perform CRUD operations on all entities
 ### Loans management
 
 > Admin users have all information about loans at a glance. They can also see
-> the members who have overdue return dates and send them an email to warn
+> the members who have overdue return dates and send them an email to warn.
+> They can also search by both books and members.
 
 ![loans-management](https://github.com/amadr-95/library-management/assets/122611230/ee456934-28db-4047-b3c6-45c25779b055)
 
